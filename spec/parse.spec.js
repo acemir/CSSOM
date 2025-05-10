@@ -634,6 +634,28 @@ var TESTS = [
 		})()
 	},
 	{
+		input: "@media(hover:hover){}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						media: {
+							0: "(hover:hover)",
+							length: 1
+						},
+						cssRules: [],
+						parentRule: null,
+						__starts: 0,
+						__ends: 21
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			return result;
+		})()
+	},
+	{
 		input: "@mediaall {}",
 		result: {
 			cssRules: [],
@@ -642,39 +664,10 @@ var TESTS = [
 	},
 	{
 		input: "some invalid junk @media projection {body{background:black}}",
-		result: (function() {
-			var result = {
-				cssRules: [
-					{
-						media: {
-							0: "projection",
-							length: 1
-						},
-						cssRules: [
-							{
-								selectorText: "body",
-								style: {
-									0: "background",
-									background: "black",
-									__starts: 41,
-									length: 1
-								},
-								__starts: 37,
-								__ends: 59
-							}
-						],
-						parentRule: null,
-						__starts: 18,
-						__ends: 60
-					}
-				],
-				parentStyleSheet: null
-			};
-			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
-			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
-			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
-			return result;
-		})()
+		result: {
+			cssRules: [],
+			parentStyleSheet: null
+		}
 	},
 	{
 		input: "@media screen{a{color:blue !important;background:red;} @font-face { font-family: 'Arial2'; } }",
