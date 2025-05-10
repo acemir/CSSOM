@@ -1,6 +1,7 @@
 exports.files = [
 	"CSSStyleDeclaration",
 	"CSSRule",
+	"CSSNestedDeclarations",
 	"CSSGroupingRule",
 	"CSSStyleRule",
 	"CSSConditionRule",
