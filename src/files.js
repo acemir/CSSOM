@@ -1,8 +1,8 @@
 exports.files = [
 	"CSSStyleDeclaration",
 	"CSSRule",
-	"CSSStyleRule",
 	"CSSGroupingRule",
+	"CSSStyleRule",
 	"CSSConditionRule",
 	"MediaList",
 	"CSSMediaRule",

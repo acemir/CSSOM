@@ -26,6 +26,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "a",
 						style: {
 							0: "color",
@@ -51,6 +52,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: ".left",
 						style: {
 							0: "float",
@@ -76,6 +78,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "h1",
 						style: {
 							0: "font-family",
@@ -101,6 +104,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "h2",
 						style: {
 							0: "font",
@@ -126,6 +130,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "h3",
 						style: {
 							0: "font-family",
@@ -151,6 +156,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: ".icon>*",
 						style: {
 							0: "background-image",
@@ -176,6 +182,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "*",
 						style: {
 							__starts: 5,
@@ -199,6 +206,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "*",
 						style: {
 							__starts: 5,
@@ -222,6 +230,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "* *",
 						style: {
 							__starts: 7,
@@ -245,6 +254,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "* *",
 						style: {
 							__starts: 8,
@@ -268,6 +278,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "#a",
 						style: {
 							0: "b",
@@ -279,6 +290,7 @@ var TESTS = [
 						__starts: 0,
 						__ends: 9
 					}, {
+						cssRules: [],
 						selectorText: "#d",
 						style: {
 							0: "e",
@@ -305,6 +317,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "*",
 						style: {
 							0: "border",
@@ -317,6 +330,7 @@ var TESTS = [
 						__ends: 18
 					},
 					{
+						cssRules: [],
 						selectorText: "#foo",
 						style: {
 							0: "font-size",
@@ -345,6 +359,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "span",
 						style: {
 							0: "display",
@@ -359,6 +374,7 @@ var TESTS = [
 						__ends: 74
 					},
 					{
+						cssRules: [],
 						selectorText: ".error",
 						style: {
 							0: "color",
@@ -385,6 +401,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: 'img:not([src])',
 						parentRule: null,
 						style: {
@@ -407,6 +424,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: 'body',
 						parentRule: null,
 						style: {
@@ -429,6 +447,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: '.gradient',
 						parentRule: null,
 						style: {
@@ -451,6 +470,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: '.calc',
 						parentRule: null,
 						style: {
@@ -473,6 +493,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: '.gradient',
 						parentRule: null,
 						style: {
@@ -502,6 +523,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "max-width",
@@ -562,6 +584,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "*",
 								style: {
 									0: "background",
@@ -592,6 +615,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "a",
 						style: {
 							__starts: 1,
@@ -608,6 +632,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "b",
 								style: {
 									0: "color",
@@ -681,6 +706,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "a",
 								style: {
 									0: "color",
@@ -731,6 +757,7 @@ var TESTS = [
 								},
 								cssRules: [
 									{
+										cssRules: [],
 										selectorText: "a",
 										style: {
 											0: "color",
@@ -769,6 +796,7 @@ var TESTS = [
 						conditionText: "(display: grid)",
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "html",
 								style: {
 									0: "display",
@@ -797,6 +825,7 @@ var TESTS = [
 						conditionText: "not (display: grid)",
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "html",
 								style: {
 									0: "display",
@@ -832,6 +861,7 @@ var TESTS = [
 						}
 					},
 					{
+						cssRules: [],
 						selectorText: "i",
 						parentRule: null,
 						style: {
@@ -864,6 +894,7 @@ var TESTS = [
 						}
 					},
 					{
+						cssRules: [],
 						selectorText: "i",
 						parentRule: null,
 						style: {
@@ -897,6 +928,7 @@ var TESTS = [
 						}
 					},
 					{
+						cssRules: [],
 						selectorText: "i",
 						parentRule: null,
 						style: {
@@ -946,6 +978,7 @@ var TESTS = [
 					{
 						cssRules: {
 							0: {
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "background",
@@ -973,6 +1006,7 @@ var TESTS = [
 					{
 						cssRules: {
 							0: {
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "background",
@@ -1002,6 +1036,7 @@ var TESTS = [
 						0: {
 							cssRules: {
 								0: {
+									cssRules: [],
 									parentRule: "../..",
 									parentStyleSheet: "../../../../../..",
 									selectorText: "body",
@@ -1039,6 +1074,7 @@ var TESTS = [
 					0: {
 						cssRules: {
 							0: {
+								cssRules: [],
 								parentRule: "../..",
 								parentStyleSheet: "../../../../../..",
 								selectorText: "body",
@@ -1118,6 +1154,7 @@ var TESTS = [
 						parentRule: null
 					},
 					{
+						cssRules: [],
 						selectorText: "@--keyframes bar",
 						style: {
 							length: 0
@@ -1286,6 +1323,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "color",
@@ -1322,6 +1360,7 @@ var TESTS = [
 						containerText: "sidebar (min-width: 400px)",
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "max-width",
@@ -1352,6 +1391,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: 'a',
 						style: {
 							length: 0,
@@ -1368,6 +1408,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "color",
@@ -1405,6 +1446,7 @@ var TESTS = [
 						layerName: "custom-layer",
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "div",
 								style: {
 									0: "display",
@@ -1433,6 +1475,7 @@ var TESTS = [
 						layerName: "",
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "div",
 								style: {
 									0: "display",
