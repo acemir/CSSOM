@@ -181,14 +181,29 @@ window.onload = function() {
 };
 
 window.onhashchange = hashChanged;
-style.onkeyup = style.onpaste = function changed(){
+
+function debounce(func, timeout) {
+  if (timeout === undefined) timeout = 300;
+  var timer;
+  return function() {
+    var args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function() { func.apply(this, args); }, timeout);
+  };
+}
+
+function changed(){
 	outputUpdated();
-};
-style.onchange = function updateLocation() {
+}
+
+function updateLocation() {
 	if (style.value.length < 1024) {
 		location.hash = "css=" + encodeURIComponent(style.value);
 	} else {
 		// Huge location.hash slows down the browser :(
 		location.hash = 'css_is_too_big';
 	}
-};
+}
+
+style.onkeyup = style.onpaste = debounce(function() { return changed(); });
+style.onchange = debounce(function() { return updateLocation()});;
