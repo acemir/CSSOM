@@ -26,6 +26,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "a",
 						style: {
 							0: "color",
@@ -51,6 +52,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: ".left",
 						style: {
 							0: "float",
@@ -76,6 +78,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "h1",
 						style: {
 							0: "font-family",
@@ -101,6 +104,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "h2",
 						style: {
 							0: "font",
@@ -126,6 +130,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "h3",
 						style: {
 							0: "font-family",
@@ -151,6 +156,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: ".icon>*",
 						style: {
 							0: "background-image",
@@ -176,6 +182,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "*",
 						style: {
 							__starts: 5,
@@ -199,6 +206,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "*",
 						style: {
 							__starts: 5,
@@ -222,6 +230,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "* *",
 						style: {
 							__starts: 7,
@@ -245,6 +254,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "* *",
 						style: {
 							__starts: 8,
@@ -268,6 +278,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "#a",
 						style: {
 							0: "b",
@@ -279,6 +290,7 @@ var TESTS = [
 						__starts: 0,
 						__ends: 9
 					}, {
+						cssRules: [],
 						selectorText: "#d",
 						style: {
 							0: "e",
@@ -305,6 +317,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "*",
 						style: {
 							0: "border",
@@ -317,6 +330,7 @@ var TESTS = [
 						__ends: 18
 					},
 					{
+						cssRules: [],
 						selectorText: "#foo",
 						style: {
 							0: "font-size",
@@ -345,6 +359,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "span",
 						style: {
 							0: "display",
@@ -359,6 +374,7 @@ var TESTS = [
 						__ends: 74
 					},
 					{
+						cssRules: [],
 						selectorText: ".error",
 						style: {
 							0: "color",
@@ -385,6 +401,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: 'img:not([src])',
 						parentRule: null,
 						style: {
@@ -407,6 +424,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: 'body',
 						parentRule: null,
 						style: {
@@ -429,6 +447,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: '.gradient',
 						parentRule: null,
 						style: {
@@ -451,6 +470,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: '.calc',
 						parentRule: null,
 						style: {
@@ -473,6 +493,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: '.gradient',
 						parentRule: null,
 						style: {
@@ -502,6 +523,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "max-width",
@@ -562,6 +584,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "*",
 								style: {
 									0: "background",
@@ -592,6 +615,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: "a",
 						style: {
 							__starts: 1,
@@ -608,6 +632,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "b",
 								style: {
 									0: "color",
@@ -634,6 +659,28 @@ var TESTS = [
 		})()
 	},
 	{
+		input: "@media(hover:hover){}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						media: {
+							0: "(hover:hover)",
+							length: 1
+						},
+						cssRules: [],
+						parentRule: null,
+						__starts: 0,
+						__ends: 21
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			return result;
+		})()
+	},
+	{
 		input: "@mediaall {}",
 		result: {
 			cssRules: [],
@@ -642,41 +689,17 @@ var TESTS = [
 	},
 	{
 		input: "some invalid junk @media projection {body{background:black}}",
-		result: (function() {
-			var result = {
-				cssRules: [
-					{
-						media: {
-							0: "projection",
-							length: 1
-						},
-						cssRules: [
-							{
-								selectorText: "body",
-								style: {
-									0: "background",
-									background: "black",
-									__starts: 41,
-									length: 1
-								},
-								__starts: 37,
-								__ends: 59
-							}
-						],
-						parentRule: null,
-						__starts: 18,
-						__ends: 60
-					}
-				],
-				parentStyleSheet: null
-			};
-			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
-			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
-			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
-			return result;
-		})()
+		result: {
+			cssRules: [],
+			parentStyleSheet: null
+		}
 	},
 	{
+		// Warning: While this code might appear to work in some browsers,
+		// placing @font-face inside a @media query is not considered correct CSS usage.
+		// Browsers are expected to process @font-face at the global level, independent of media conditions.
+		// Some browsers might still parse it without errors,
+		// but it's not reliable behavior and could lead to inconsistent results across different platforms.
 		input: "@media screen{a{color:blue !important;background:red;} @font-face { font-family: 'Arial2'; } }",
 		result: (function() {
 			var result = {
@@ -688,6 +711,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "a",
 								style: {
 									0: "color",
@@ -738,6 +762,7 @@ var TESTS = [
 								},
 								cssRules: [
 									{
+										cssRules: [],
 										selectorText: "a",
 										style: {
 											0: "color",
@@ -750,7 +775,6 @@ var TESTS = [
 										}
 									}
 								],
-								parentRule: null // This is currently incorrect.
 							}
 						]
 					}
@@ -760,9 +784,7 @@ var TESTS = [
 
 			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
 			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
-
-			// This is currently incorrect.
-			// result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
 
 			return result;
 		})()
@@ -776,6 +798,7 @@ var TESTS = [
 						conditionText: "(display: grid)",
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "html",
 								style: {
 									0: "display",
@@ -804,6 +827,7 @@ var TESTS = [
 						conditionText: "not (display: grid)",
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "html",
 								style: {
 									0: "display",
@@ -839,6 +863,7 @@ var TESTS = [
 						}
 					},
 					{
+						cssRules: [],
 						selectorText: "i",
 						parentRule: null,
 						style: {
@@ -871,6 +896,7 @@ var TESTS = [
 						}
 					},
 					{
+						cssRules: [],
 						selectorText: "i",
 						parentRule: null,
 						style: {
@@ -904,6 +930,78 @@ var TESTS = [
 						}
 					},
 					{
+						cssRules: [],
+						selectorText: "i",
+						parentRule: null,
+						style: {
+							0: 'font-style',
+							'font-style': 'italic',
+							length: 1
+						}
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].styleSheet.parentStyleSheet = result.cssRules[1].parentStyleSheet = result;
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			return result;
+		})()
+	},
+	{
+		input: '@import url(partial.css) screen and (max-width: 400px);\ni {font-style: italic}',
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						href: 'partial.css',
+						media: {
+							0: "screen and (max-width: 400px)",
+							length: 1
+						},
+						parentRule: null,
+						styleSheet: {
+							cssRules: []
+						}
+					},
+					{
+						cssRules: [],
+						selectorText: "i",
+						parentRule: null,
+						style: {
+							0: 'font-style',
+							'font-style': 'italic',
+							length: 1
+						}
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].styleSheet.parentStyleSheet = result.cssRules[1].parentStyleSheet = result;
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			return result;
+		})()
+	},
+	// Missing support for layer and suppports on @import rule
+	{
+		input: '@import url(partial.css) layer(default) supports(display: grid) screen and (max-width: 400px);\ni {font-style: italic}',
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						href: 'partial.css',
+						layerName: "default",
+						media: {
+							0: "screen and (max-width: 400px)",
+							length: 1
+						},
+						parentRule: null,
+						styleSheet: {
+							cssRules: []
+						},
+						supportsText: "display: grid"
+					},
+					{
+						cssRules: [],
 						selectorText: "i",
 						parentRule: null,
 						style: {
@@ -953,6 +1051,7 @@ var TESTS = [
 					{
 						cssRules: {
 							0: {
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "background",
@@ -980,6 +1079,7 @@ var TESTS = [
 					{
 						cssRules: {
 							0: {
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "background",
@@ -1004,35 +1104,36 @@ var TESTS = [
 		result: (function() {
 			var result = {
 				cssRules: [
-				{
-					cssRules: {
-						0: {
-							cssRules: {
-								0: {
-									parentRule: "../..",
-									parentStyleSheet: "../../../../../..",
-									selectorText: "body",
-									style: {
-										0: "background",
-										length: 1,
-										parentRule: "..",
-										background: "red",
+					{
+						cssRules: {
+							0: {
+								cssRules: {
+									0: {
+										cssRules: [],
+										parentRule: "../..",
+										parentStyleSheet: "../../../../../..",
+										selectorText: "body",
+										style: {
+											0: "background",
+											length: 1,
+											parentRule: "..",
+											background: "red",
+										},
 									},
 								},
+								media: {
+									0: "screen",
+									length: 1
+								}
 							},
-							parentRule: null,
-							media: {
-								0: "screen",
-								length: 1
-							}
 						},
+						parentRule: null,
 					},
-					parentRule: null,
-				},
 				],
 				parentStyleSheet: null,
 			};
 			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
 			return result;
 		})()
 	},
@@ -1041,42 +1142,43 @@ var TESTS = [
 		result: (function() {
 			var result = {
 				cssRules: [
-				{
-					cssRules: {
-					0: {
+					{
 						cssRules: {
 							0: {
-								parentRule: "../..",
-								parentStyleSheet: "../../../../../..",
-								selectorText: "body",
-								style: {
-									0: "background",
-									length: 1,
-									parentRule: "..",
-									background: "red",
+								cssRules: {
+									0: {
+										cssRules: [],
+										parentRule: "../..",
+										parentStyleSheet: "../../../../../..",
+										selectorText: "body",
+										style: {
+											0: "background",
+											length: 1,
+											parentRule: "..",
+											background: "red",
+										},
+									},
 								},
 							},
 						},
 						parentRule: null,
+						media: {
+							0: "screen",
+							length: 1
+						}
 					},
-				},
-            parentRule: null,
-			media: {
-				0: "screen",
-				length: 1
-			}
-          },
-        ],
-        parentStyleSheet: null,
-      };
+				],
+				parentStyleSheet: null,
+			};
 			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
 			return result;
 		})()
 	},
 	{
 		// Non-vendor prefixed @keyframes rule, from Twitter Bootstrap (progress-bars):
 		input: '@keyframes progress-bar-stripes {\n  from  { background-position: 0 0; }\n  to    { background-position: 40px 0; }\n}',
-		result: (function () {
+		result: (function() {
 			var result = {
 				cssRules: [
 					{
@@ -1115,7 +1217,7 @@ var TESTS = [
 	{
 		// @keyframes with invalid vendor prefix followed by a valid one (make sure that the RegExp.lastIndex trick works as expected):
 		input: '@-moz-keyframes foo {} @--keyframes bar {} @-webkit-keyframes quux {}',
-		result: (function () {
+		result: (function() {
 			var result = {
 				cssRules: [
 					{
@@ -1125,6 +1227,7 @@ var TESTS = [
 						parentRule: null
 					},
 					{
+						cssRules: [],
 						selectorText: "@--keyframes bar",
 						style: {
 							length: 0
@@ -1293,6 +1396,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "color",
@@ -1329,6 +1433,7 @@ var TESTS = [
 						containerText: "sidebar (min-width: 400px)",
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "max-width",
@@ -1355,10 +1460,11 @@ var TESTS = [
 	},
 	{
 		input: "a{}@-moz-document/**/url-prefix(http://www.w3.org/Style/){body { color: purple; background: yellow; }}",
-		result: (function(){
+		result: (function() {
 			var result = {
 				cssRules: [
 					{
+						cssRules: [],
 						selectorText: 'a',
 						style: {
 							length: 0,
@@ -1375,6 +1481,7 @@ var TESTS = [
 						},
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "body",
 								style: {
 									0: "color",
@@ -1412,6 +1519,7 @@ var TESTS = [
 						layerName: "custom-layer",
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "div",
 								style: {
 									0: "display",
@@ -1440,6 +1548,7 @@ var TESTS = [
 						layerName: "",
 						cssRules: [
 							{
+								cssRules: [],
 								selectorText: "div",
 								style: {
 									0: "display",
@@ -1459,46 +1568,944 @@ var TESTS = [
 			return result;
 		})()
 	},
+	{
+		// Missing support for @layer statement and handle a comma separated layer-name list
+		input: "@layer one, two; p {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						nameList: ["one", "two"],
+						parentRule: null,
+					},
+					{
+						selectorText: "p",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result;
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			return result;
+		})()
+	},
 ];
 
+var CSS_NESTING_TESTS = [
+	{
+		// Nested Selector
+		input: "a { &.x { color: black; } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "&.x",
+								style: {
+									0: "color",
+									color: "black",
+									length: 1
+								},
+							}
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Nested At-Rule selector
+		input: "a { @media all { color: aqua; } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								media: {
+									0: "all",
+									length: 1
+								},
+								cssRules: [
+									{
+										style: {
+											0: "color",
+											color: "aqua",
+											length: 1
+										}
+									}
+								],
+							}
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// At-Rule + Nested At-Rule Selector
+		input: "@media all { a {color: aqua; }} b { @media print { color: blue; } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						media: {
+							0: "all",
+							length: 1
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "a",
+								style: {
+									0: "color",
+									color: "aqua",
+									length: 1
+								},
+							}
+						],
+						parentRule: null
+					},
+					{
+						selectorText: "b",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								media: {
+									0: "print",
+									length: 1
+								},
+								cssRules: [
+									{
+										style: {
+											0: "color",
+											color: "blue",
+											length: 1
+										}
+									}
+								],
+							}
+						],
+						parentRule: null
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[1].cssRules[0].parentStyleSheet = result.cssRules[1].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1].cssRules[0].parentRule = result.cssRules[1];
+			result.cssRules[1].cssRules[0].cssRules[0].parentRule = result.cssRules[1].cssRules[0];
+			result.cssRules[1].cssRules[0].cssRules[0].style.parentRule = result.cssRules[1].cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Style Declaration + Nested  Selector
+		input: "a { color: aqua; &.x { color: black; } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "aqua",
+							length: 1
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "&.x",
+								style: {
+									0: "color",
+									color: "black",
+									length: 1
+								},
+							},
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Style Declaration + Nested At-Rule Selector
+		input: "a { color: aqua; @starting-style { color: snow; } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "aqua",
+							length: 1
+						},
+						cssRules: [
+							{
+								cssRules: [{
+									style: {
+										0: "color",
+										color: "snow",
+										length: 1
+									},
+								}],
+							},
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Nested Selector + Nested Selector
+		input: "a { &.x { color: black; } &.y { color: yellow; } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "&.x",
+								style: {
+									0: "color",
+									color: "black",
+									length: 1
+								},
+							},
+							{
+								cssRules: [],
+								selectorText: "&.y",
+								style: {
+									0: "color",
+									color: "yellow",
+									length: 1
+								},
+							},
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Deep Nested Selector
+		input: "a { &.x { color: black; &.y { color: yellow; } } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								cssRules: [
+									{
+										cssRules: [],
+										selectorText: "&.y",
+										style: {
+											0: "color",
+											color: "yellow",
+											length: 1
+										},
+									}
+								],
+								selectorText: "&.x",
+								style: {
+									0: "color",
+									color: "black",
+									length: 1
+								},
+							},
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Style Declaration + Nested Selector + Nested Selector
+		input: "a { color: aqua; &.x { color: black; } &.y { color: yellow; } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "aqua",
+							length: 1
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "&.x",
+								style: {
+									0: "color",
+									color: "black",
+									length: 1
+								},
+							},
+							{
+								cssRules: [],
+								selectorText: "&.y",
+								style: {
+									0: "color",
+									color: "yellow",
+									length: 1
+								},
+							},
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Declaration + Nested Selector + Nested Declaration
+		input: "a { color: aqua; &.x { color: black; } float: left; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "aqua",
+							length: 1
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "&.x",
+								style: {
+									0: "color",
+									color: "black",
+									length: 1
+								},
+							},
+							{
+								style: {
+									0: "float",
+									float: "left",
+									length: 1
+								},
+							}
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0];
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Style Declaration + Nested At-Rule Selector + Nested Declaration
+		input: "a { color: aqua; @starting-style { color: snow; } float: left;}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "aqua",
+							length: 1
+						},
+						cssRules: [
+							{
+								cssRules: [{
+									style: {
+										0: "color",
+										color: "snow",
+										length: 1
+									},
+								}],
+							},
+							{
+								style: {
+									0: "float",
+									float: "left",
+									length: 1
+								},
+							},
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1]
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Style Declaration + Nested At-Rule Selector + Nested Declaration + Another Nested Selector
+		input: "a { color: aqua; @starting-style { color: snow; } float: left; &.x { color: black; } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "aqua",
+							length: 1
+						},
+						cssRules: [
+							{
+								cssRules: [{
+									style: {
+										0: "color",
+										color: "snow",
+										length: 1
+									},
+								}],
+							},
+							{
+								style: {
+									0: "float",
+									float: "left",
+									length: 1
+								},
+							},
+							{
+								cssRules: [],
+								selectorText: "&.x",
+								style: {
+									0: "color",
+									color: "black",
+									length: 1
+								},
+							},
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result.cssRules[0].cssRules[2].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0].cssRules[2].parentRule = result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1]
+			result.cssRules[0].cssRules[2].style.parentRule = result.cssRules[0].cssRules[2]
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Style Declaration + Nested At-Rule Selector with Deep Nested Selector + Nested Declaration
+		input: "a { color: aqua; @starting-style { color: snow; &.x { color: black; } } float: left; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "aqua",
+							length: 1
+						},
+						cssRules: [
+							{
+								cssRules: [
+									{
+										style: {
+											0: "color",
+											color: "snow",
+											length: 1
+										},
+									},
+									{
+										cssRules: [],
+										selectorText: "&.x",
+										style: {
+											0: "color",
+											color: "black",
+											length: 1
+										},
+									}
+								],
+							},
+							{
+								style: {
+									0: "float",
+									float: "left",
+									length: 1
+								},
+							},
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[1].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0].cssRules[1].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1]
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[0].cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Deep Nested At-Rule Selector + Deep Nested Selector + Nested Declaration
+		input: "@media only screen { @starting-style { html { &:not([lang]) { color: gray; } background: plum } } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [
+							{
+								cssRules: [
+									{
+										cssRules: [
+											{
+												cssRules: [],
+												selectorText: "&:not([lang])",
+												style: {
+													0: "color",
+													color: "gray",
+													length: 1,
+												},
+											},
+											{
+												style: {
+													0: "background",
+													background: "plum",
+													length: 1,
+												},
+											}
+										],
+										selectorText: "html",
+										style: {
+											length: 0
+										}
+									}
+								]
+							}
+						],
+						media: {
+							0: "only screen",
+							length: 1
+						},
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0].cssRules[0].cssRules[1].parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0].cssRules[1];
+			return result;
+		})()
+	},
+];
 
-describe('CSSOM', function() {
-describe('parse', function() {
+var VALIDATION_TESTS = [
+	// Invalid At-Rule Block: should be ignored and the next valid selectors should remain
+	{
+		input: "@mediaall {} p {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "p",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	// At-Rule with invalid junk before it: should be ignored and the next valid selectors should remain
+	{
+		input: "some invalid junk @media projection {body{background:black}} p {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "p",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	// Invalid At-Rule: should be ignored and the previous and next valid selectors should remain
+	{
+		input: "a{} @mediaall @media projection {body{background:black}} p {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "p",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Invalid Nested At-Rule Block: should ignore the rule block only and mantain the following declarations + nested selectors + nested declarations
+		input: "p { @mediaall @media projection {body{background:black}} color: red; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "p",
+						style: {
+							0: "color",
+							color: "red",
+							length: 1
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Invalid At-Rule Statement: should ignore the statement and the next selector, the following valid selectors should remain
+		input: "a {} invalid@import url(\"grid.css\"); p {} b {} ",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "b",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Nested @import: cannot be nested, should be ignored (still need to verify other at-rules that cannot be nested)
+		input: "p { @import url(grid.css); color: red }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "p",
+						style: {
+							0: "color",
+							color: "red",
+							length: 1
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Invalid Nesting Declaration inside root scoped At-Rule Block: should ignore the nested declaration and the next selector, but mantain the next valid selector
+		input: "@media all { color: aqua; p {} a {} color: indigo; i {} b{} color: black; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						media: {
+							0: "all",
+							length: 1
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "a",
+								style: {
+									length: 0
+								},
+							},
+							{
+								cssRules: [],
+								selectorText: "b",
+								style: {
+									length: 0
+								},
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Invalid At-Rule Block: @font-face cannot be declared within a CSS selector
+		input: "p { @font-face { font-family: 'MyCustomFont' }}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "p",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Invalid At-Rule Block: @layer can have only one layer-name, in this case is invalid and should be ignored
+		input: "@layer one, two {} p {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "p",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Invalid Nested At-Rule statement: @layer statement seems valid, but is inside a nested rule, so it must be ignored
+		input: "p { @layer one, two; color: pink}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "p",
+						style: {
+							0: "color",
+							color: "pink",
+							length: 1
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	}
+]
 
-	TESTS.forEach(function(test) {
-		given(test.input, function(input) {
+function itParse(input, result) {
+	var parsed = CSSOM.parse(input);
+
+	// Performance could optimized in order of magnitude but it’s alreaddy good enough
+	uncircularOwnProperties(parsed);
+	uncircularOwnProperties(result);
+	removeUnderscored(parsed);
+	removeUnderscored(result);
+	expect(parsed).toEqualOwnProperties(result);
+}
+
+describe('CSSOM', function () {
+	describe('parse', function () {
+
+		TESTS.forEach(function (test) {
+			given(test.input, itParse.bind(this, test.input, test.result));
+		});
+
+		given('a{content:"\\""}', function (input) {
 			var parsed = CSSOM.parse(input);
+			expect(parsed.cssRules[0].style.content).toBe('"\\""');
+		});
 
-			// Performance could optimized in order of magnitude but it’s alreaddy good enough
-			uncircularOwnProperties(parsed);
-			uncircularOwnProperties(test.result);
-			removeUnderscored(parsed);
-			removeUnderscored(test.result);
-			expect(parsed).toEqualOwnProperties(test.result);
+		given("a{content:'\\''}", function (input) {
+			var parsed = CSSOM.parse(input);
+			expect(parsed.cssRules[0].style.content).toBe("'\\''");
+		});
+
+		given('a{content:"abc\\"\\"d\\"ef"}', function (input) {
+			var parsed = CSSOM.parse(input);
+			expect(parsed.cssRules[0].style.content).toBe('"abc\\"\\"d\\"ef"');
+		});
+
+		given("a{content:'abc\\'\\'d\\'ef'}", function (input) {
+			var parsed = CSSOM.parse(input);
+			expect(parsed.cssRules[0].style.content).toBe("'abc\\'\\'d\\'ef'");
+		});
+
+	});
+
+	describe('parse CSS NESTING', function () {
+		CSS_NESTING_TESTS.forEach(function (test) {
+			given(test.input, itParse.bind(this, test.input, test.result));
 		});
 	});
 
-	given('a{content:"\\""}', function(input) {
-		var parsed = CSSOM.parse(input);
-		expect(parsed.cssRules[0].style.content).toBe('"\\""');
+	describe('parse VALIDATION', function () {
+		VALIDATION_TESTS.forEach(function (test) {
+			given(test.input, itParse.bind(this, test.input, test.result));
+		});
 	});
-
-	given("a{content:'\\''}", function(input) {
-		var parsed = CSSOM.parse(input);
-		expect(parsed.cssRules[0].style.content).toBe("'\\''");
-	});
-
-	given('a{content:"abc\\"\\"d\\"ef"}', function(input) {
-		var parsed = CSSOM.parse(input);
-		expect(parsed.cssRules[0].style.content).toBe('"abc\\"\\"d\\"ef"');
-	});
-
-	given("a{content:'abc\\'\\'d\\'ef'}", function(input) {
-		var parsed = CSSOM.parse(input);
-		expect(parsed.cssRules[0].style.content).toBe("'abc\\'\\'d\\'ef'");
-	});
-
-});
 });
 
 
