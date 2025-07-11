@@ -1,6 +1,6 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "rrweb-io/cssom" }],
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "acemir/CSSOM" }],
   "commit": false,
   "linked": [],
   "access": "public",
