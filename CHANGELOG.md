@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.0
+
+### Changes
+
+- [#2](https://github.com/acemir/CSSOM/pull/2) [`64e49ef`](https://github.com/acemir/CSSOM/commit/64e49eff75d84d26821c0f4ce69d4f6f398037c8) - feat: support for nested selectors, nested declarations and at-rule validations
+
 ## 0.8.0
 
 ### Minor Changes
