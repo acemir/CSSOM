@@ -1,4 +1,4 @@
-# rrweb-cssom
+# @acemir/cssom
 
 ## 0.8.0
 
