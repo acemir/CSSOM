@@ -24,6 +24,15 @@ describe('CSSStyleSheet', function() {
 			s.insertRule("a {color: blue}", 0);
 			expect(s.cssRules[0].parentStyleSheet).toBe(s);
 		});
+
+		it('should insert in index 0 by default', function () {
+			var s = new CSSOM.CSSStyleSheet;
+			s.insertRule("a {color: blue}", 0);
+
+			var insertedIndex = s.insertRule("b {color: black;}");
+			expect(insertedIndex).toEqual(0);
+			expect(s.cssRules[0].cssText).toEqual("b {color: black;}");
+		})
 	});
 });
 });
