@@ -47,6 +47,35 @@ var TESTS = [
 		})()
 	},
 	{
+		input: "a {color: yellow !important; color: red; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "yellow",
+							_importants: {
+								color: "important"
+							},
+							__starts: 2,
+							length: 1
+						},
+						parentRule: null,
+						__starts: 0,
+						__ends: 42
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
 		input: ".left {float: left;}",
 		result: (function() {
 			var result = {
