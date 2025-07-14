@@ -1545,7 +1545,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
-						layerName: "custom-layer",
+						name: "custom-layer",
 						cssRules: [
 							{
 								cssRules: [],
@@ -1574,7 +1574,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
-						layerName: "",
+						name: "",
 						cssRules: [
 							{
 								cssRules: [],
