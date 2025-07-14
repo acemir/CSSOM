@@ -2481,7 +2481,46 @@ var VALIDATION_TESTS = [
 			result.cssRules[0].style.parentRule = result.cssRules[0];
 			return result;
 		})()
-	}
+	},
+	{
+		// Unclosed @layer statement
+		input: "@layer one",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						nameList: ["one"],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			return result;
+		})()
+	},
+	{
+		input: '@import "partial.css"',
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						href: 'partial.css',
+						media: {
+							length: 0
+						},
+						parentRule: null,
+						styleSheet: {
+							cssRules: []
+						}
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].styleSheet.parentStyleSheet = result;
+			return result;
+		})()
+	},
 ]
 
 function itParse(input, result) {
