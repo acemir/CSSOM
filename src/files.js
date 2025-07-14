@@ -18,6 +18,7 @@ exports.files = [
 	"CSSKeyframesRule",
 	"CSSKeyframeRule",
 	"CSSLayerBlockRule",
+	"CSSLayerStatementRule",
 	"MatcherList",
 	"CSSDocumentRule",
 	"CSSValue",
