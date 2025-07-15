@@ -1,5 +1,17 @@
 # @acemir/cssom
 
+## 0.9.1
+
+### Patch Changes
+
+- [#4](https://github.com/acemir/CSSOM/pull/4) [`46a61ee`](https://github.com/acemir/CSSOM/commit/46a61ee43242b69ace0cce9bf252737b12c2b56e) Thanks [@acemir](https://github.com/acemir)! - fix: check the priority value of the existing property
+
+- [#7](https://github.com/acemir/CSSOM/pull/7) [`6d14f90`](https://github.com/acemir/CSSOM/commit/6d14f904a4a7038a622230460341a47676d6e045) Thanks [@acemir](https://github.com/acemir)! - feat: add layer() and supports() to @import rule
+
+- [#6](https://github.com/acemir/CSSOM/pull/6) [`a6526ad`](https://github.com/acemir/CSSOM/commit/a6526adcca382a170e35cfeef979a710ac579ec2) Thanks [@acemir](https://github.com/acemir)! - feat: support CSSLayerStatementRule, adjust CSSLayerBlockRule and improves at-rule validation
+
+- [#3](https://github.com/acemir/CSSOM/pull/3) [`243e8cd`](https://github.com/acemir/CSSOM/commit/243e8cd38cdb5c3f46cb83a87815fbeeeac22994) Thanks [@acemir](https://github.com/acemir)! - `index` parameter of `CSSStyleSheet.insertRule` is now optional
+
 ## 0.9.0
 
 ### Changes
