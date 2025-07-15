@@ -883,6 +883,8 @@ var TESTS = [
 				cssRules: [
 					{
 						href: 'partial.css',
+						layerName: null,
+						supportsText: null,
 						media: {
 							length: 0
 						},
@@ -916,6 +918,8 @@ var TESTS = [
 				cssRules: [
 					{
 						href: 'partial.css',
+						layerName: null,
+						supportsText: null,
 						media: {
 							length: 0
 						},
@@ -950,6 +954,8 @@ var TESTS = [
 				cssRules: [
 					{
 						href: 'partial.css',
+						layerName: null,
+						supportsText: null,
 						media: {
 							length: 0
 						},
@@ -983,6 +989,8 @@ var TESTS = [
 				cssRules: [
 					{
 						href: 'partial.css',
+						layerName: null,
+						supportsText: null,
 						media: {
 							0: "screen and (max-width: 400px)",
 							length: 1
@@ -1010,7 +1018,6 @@ var TESTS = [
 			return result;
 		})()
 	},
-	// Missing support for layer and suppports on @import rule
 	{
 		input: '@import url(partial.css) layer(default) supports(display: grid) screen and (max-width: 400px);\ni {font-style: italic}',
 		result: (function() {
@@ -1044,6 +1051,31 @@ var TESTS = [
 			};
 			result.cssRules[0].parentStyleSheet = result.cssRules[0].styleSheet.parentStyleSheet = result.cssRules[1].parentStyleSheet = result;
 			result.cssRules[1].style.parentRule = result.cssRules[1];
+			return result;
+		})()
+	},
+	// 
+	{
+		input: '@import url(partial.css) layer;',
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						href: 'partial.css',
+						layerName: "",
+						supportsText: null,
+						media: {
+							length: 0
+						},
+						parentRule: null,
+						styleSheet: {
+							cssRules: []
+						}
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].styleSheet.parentStyleSheet = result;
 			return result;
 		})()
 	},
@@ -2506,6 +2538,8 @@ var VALIDATION_TESTS = [
 				cssRules: [
 					{
 						href: 'partial.css',
+						layerName: null,
+						supportsText: null,
 						media: {
 							length: 0
 						},
@@ -2518,6 +2552,78 @@ var VALIDATION_TESTS = [
 				parentStyleSheet: null
 			};
 			result.cssRules[0].parentStyleSheet = result.cssRules[0].styleSheet.parentStyleSheet = result;
+			return result;
+		})()
+	},
+	// In the browser, an empty layer() is not processed as a unamed layer
+	{
+		input: '@import "partial.css" layer()',
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						href: 'partial.css',
+						layerName: null,
+						supportsText: null,
+						media: {
+							length: 0
+						},
+						parentRule: null,
+						styleSheet: {
+							cssRules: []
+						}
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].styleSheet.parentStyleSheet = result;
+			return result;
+		})()
+	},
+	// In the browser, an invalid name inside layer() is not processed
+	{
+		input: '@import "partial.css" layer(1invalid-name)',
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						href: 'partial.css',
+						layerName: null,
+						supportsText: null,
+						media: {
+							length: 0
+						},
+						parentRule: null,
+						styleSheet: {
+							cssRules: []
+						}
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].styleSheet.parentStyleSheet = result;
+			return result;
+		})()
+	},
+	{
+		// Invalid @layer name in a layer block rule
+		input: "@layer 1invalid-name {}",
+		result: (function() {
+			var result = {
+				cssRules: [],
+				parentStyleSheet: null
+			}
+			return result;
+		})()
+	},
+	{
+		// Invalid @layer name in a layer statement rule
+		input: "@layer valid-name, 1invalid-name;",
+		result: (function() {
+			var result = {
+				cssRules: [],
+				parentStyleSheet: null
+			}
 			return result;
 		})()
 	},
