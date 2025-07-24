@@ -1645,6 +1645,58 @@ var TESTS = [
 			return result;
 		})()
 	},
+	{
+		// Non-ASCII and escaped characters
+		input: "#a\ b {} #åèiöú {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "#a\ b",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "#åèiöú",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Deeply nested complex selector
+		input: "#target2:has(:not(.item, :nth-last-child(3))) {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "#target2:has(:not(.item, :nth-last-child(3)))",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
 ];
 
 var CSS_NESTING_TESTS = [
