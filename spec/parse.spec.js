@@ -2889,6 +2889,14 @@ describe('CSSOM', function () {
 			expect(parsed.cssRules[0].style.content).toBe("'abc\\'\\'d\\'ef'");
 		});
 
+		given("@invalid { this is not valid css }", function (input) {
+			var parseErrors = [];
+			var parseErrorHandler = function(error) {
+				parseErrors.push(error);
+			}
+			CSSOM.parse(input, parseErrorHandler);
+			expect(parseErrors.length).toBe(1);
+		});
 	});
 
 	describe('parse CSS NESTING', function () {
