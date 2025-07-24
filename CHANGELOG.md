@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.6
+
+### Patch Changes
+
+- [#16](https://github.com/acemir/CSSOM/pull/16) [`cf9dc7d`](https://github.com/acemir/CSSOM/commit/cf9dc7db8adfeda6224ddb8ec02a2516d3b714d1) Thanks [@acemir](https://github.com/acemir)! - feat: improves complex selectors validation
+
 ## 0.9.5
 
 ### Patch Changes
