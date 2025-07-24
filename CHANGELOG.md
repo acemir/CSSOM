@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.2
+
+### Patch Changes
+
+- [#8](https://github.com/acemir/CSSOM/pull/8) [`5ea9d4f`](https://github.com/acemir/CSSOM/commit/5ea9d4f2ac761079a6c94fce85e73d2efcff85c8) Thanks [@acemir](https://github.com/acemir)! - feat: parser improvements on selectors, declaration values and error handling
+
 ## 0.9.1
 
 ### Patch Changes
