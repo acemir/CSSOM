@@ -2827,6 +2827,28 @@ var VALIDATION_TESTS = [
 			return result;
 		})()
 	},
+	{
+		// Support attribute selector's case-insensitive flag
+		input: "input[dir=auto i]:is([type=search i], [type=tel i], [type=url i], [type=email i]), textarea[dir=auto i], pre[dir=auto i], img:is([sizes=\"auto\" i], [sizes^='auto,' i])  {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "input[dir=auto i]:is([type=search i], [type=tel i], [type=url i], [type=email i]), textarea[dir=auto i], pre[dir=auto i], img:is([sizes=\"auto\" i], [sizes^='auto,' i])",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
 ]
 
 function itParse(input, result) {
