@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.5
+
+### Patch Changes
+
+- [#14](https://github.com/acemir/CSSOM/pull/14) [`2bde3f5`](https://github.com/acemir/CSSOM/commit/2bde3f5988aa4e16b7f9a41ae75dbe8e26bc0311) Thanks [@acemir](https://github.com/acemir)! - fix: injectable errorHandler
+
 ## 0.9.4
 
 ### Patch Changes
