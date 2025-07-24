@@ -1277,6 +1277,7 @@ var TESTS = [
 	},
 	{
 		// @keyframes with invalid vendor prefix followed by a valid one (make sure that the RegExp.lastIndex trick works as expected):
+		// CHANGED: @keyframes with invalid vendor prefix must be ignored.
 		input: '@-moz-keyframes foo {} @--keyframes bar {} @-webkit-keyframes quux {}',
 		result: (function() {
 			var result = {
@@ -1288,16 +1289,6 @@ var TESTS = [
 						parentRule: null
 					},
 					{
-						cssRules: [],
-						selectorText: "@--keyframes bar",
-						style: {
-							length: 0
-						},
-						parentRule: null,
-						__starts: 0,
-						__ends: 14
-					},
-					{
 						name: "quux",
 						_vendorPrefix: "-webkit-",
 						cssRules: [],
@@ -1306,8 +1297,7 @@ var TESTS = [
 				],
 				parentStyleSheet: null
 			};
-			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[2].parentStyleSheet = result;
-			result.cssRules[1].style.parentRule = result.cssRules[1];
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result;
 			return result;
 		})()
 	},
@@ -1658,7 +1648,7 @@ var TESTS = [
 ];
 
 var CSS_NESTING_TESTS = [
-	{
+	{	
 		// Nested Selector
 		input: "a { &.x { color: black; } }",
 		result: (function() {
@@ -2195,6 +2185,46 @@ var CSS_NESTING_TESTS = [
 			return result;
 		})()
 	},
+	{		
+		// Nested Selector (ensure each selector contains '&' at the beginning, except for selectors that already have '&' somewhere)
+		input: "a { x, .y { } #z & { }  }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "& x, & .y",
+								style: {
+									length: 0
+								},
+							},
+							{
+								cssRules: [],
+								selectorText: "#z &",
+								style: {
+									length: 0
+								},
+							}
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0];
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
+			return result;
+		})()
+	},
 	{
 		// Deep Nested At-Rule Selector + Deep Nested Selector + Nested Declaration
 		input: "@media only screen { @starting-style { html { &:not([lang]) { color: gray; } background: plum } } }",
@@ -2608,22 +2638,192 @@ var VALIDATION_TESTS = [
 	{
 		// Invalid @layer name in a layer block rule
 		input: "@layer 1invalid-name {}",
-		result: (function() {
-			var result = {
-				cssRules: [],
-				parentStyleSheet: null
-			}
-			return result;
-		})()
+		result: {
+			cssRules: [],
+			parentStyleSheet: null
+		}
 	},
 	{
 		// Invalid @layer name in a layer statement rule
 		input: "@layer valid-name, 1invalid-name;",
+		result: {
+			cssRules: [],
+			parentStyleSheet: null
+		}
+	},
+	{
+		// Unexpected closing followed by invalid block folowed by valid block
+		input: "a{} b{}} c{} d{}",
 		result: (function() {
 			var result = {
-				cssRules: [],
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "b",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "d",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
 				parentStyleSheet: null
 			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[2].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			result.cssRules[2].style.parentRule = result.cssRules[2];
+			return result;
+		})()
+	},
+	{
+		// Unexpected opening brace followed valid blocks
+		input: "a{} b{}{ c{} d{}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "b",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Unexpected opening brace followed valid blocks followed by a matched closing brace followed by a valid block
+		input: "a{} b{}{ c{} d{}} e{}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "b",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "e",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[2].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			result.cssRules[2].style.parentRule = result.cssRules[2];
+			return result;
+		})()
+	},
+	{
+		// Ignoring invalid css declaration values in a general approach, keeping the valid ones
+		input: "a { background: red :; color: pink; outline: 1px solid red : }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "pink",
+							length: 1
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Ignoring invalid selectors in a general approach
+		input: "@invalid { this is not valid css }",
+		result: {
+			cssRules: [],
+			parentStyleSheet: null
+		}
+	},
+	{
+		// Ignoring invalid nested selectors in a general approach
+		input: "a { b{} @invalid { this is not valid css } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								selectorText: "& b",
+								style: {
+									length: 0
+								},
+								cssRules: [],
+								parentRule: null,
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
 			return result;
 		})()
 	},
