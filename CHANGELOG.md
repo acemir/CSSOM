@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.3
+
+### Patch Changes
+
+- [`d2a81ae`](https://github.com/acemir/CSSOM/commit/d2a81ae9db8f5b98a4c911c8fdcec270b276561a) Thanks [@acemir](https://github.com/acemir)! - feat: support attribute selector case-insensitive flag
+
 ## 0.9.2
 
 ### Patch Changes
