@@ -49,6 +49,22 @@ describe('CSSStyleDeclaration', function() {
 		expect(d.cssText).toBe('color: green;');
 	});
 
+	it ('setProperty with invalid value', function() {
+		var d = new CSSOM.CSSStyleDeclaration;
+		var parseErrors = [];
+		var parseErrorHandler = function(e) {
+			parseErrors.push(e);
+		}
+
+		d.setProperty('color', 'pink :', undefined, parseErrorHandler);
+		expect(d).toEqualOwnProperties({
+			length: 0,
+			parentRule: null,
+			_importants: {}
+		});
+		expect(parseErrors.length).toBe(1);
+	});
+
 	given('color: pink; outline: 2px solid red;', function(cssText) {
 		var d = new CSSOM.CSSStyleDeclaration;
 		d.cssText = cssText;
