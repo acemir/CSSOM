@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.4
+
+### Patch Changes
+
+- [#12](https://github.com/acemir/CSSOM/pull/12) [`4f3abd2`](https://github.com/acemir/CSSOM/commit/4f3abd229e85707efb7eebc8eb98f92d899c5e10) Thanks [@acemir](https://github.com/acemir)! - feat: improve handling of complex selectors
+
 ## 0.9.3
 
 ### Patch Changes
