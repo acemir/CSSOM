@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.8
+
+### Patch Changes
+
+- [#21](https://github.com/acemir/CSSOM/pull/21) [`620ebfa`](https://github.com/acemir/CSSOM/commit/620ebfa74ed1124d79cd97f1cd91b2cc51f630ac) Thanks [@acemir](https://github.com/acemir)! - fix: improve CSSCounterStyleRule draft processing
+
 ## 0.9.7
 
 ### Patch Changes
