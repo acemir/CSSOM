@@ -1699,7 +1699,7 @@ var TESTS = [
 	},
 {
 		// Deeply nested complex selector
-		input: "@counter-style foo { system: cyclic; symbols: ‣; suffix: \" \"; }",
+		input: "@counter-style foo {\n  system: cyclic;\n  symbols: ‣;\n  suffix: \" \";\n}",
 		result: (function() {
 			var result = {
 				cssRules: [
