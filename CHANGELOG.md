@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.9
+
+### Patch Changes
+
+- [#23](https://github.com/acemir/CSSOM/pull/23) [`dd8f3c7`](https://github.com/acemir/CSSOM/commit/dd8f3c76e9408f9469d2cb3f0628589d5a56def8) Thanks [@acemir](https://github.com/acemir)! - fix: handle newlines in the middle of selectors
+
 ## 0.9.8
 
 ### Patch Changes
