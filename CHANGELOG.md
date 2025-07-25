@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.10
+
+### Patch Changes
+
+- [#25](https://github.com/acemir/CSSOM/pull/25) [`8ae26ad`](https://github.com/acemir/CSSOM/commit/8ae26adf4edc4a304d9bf12fd26b17c0cd5961c4) Thanks [@acemir](https://github.com/acemir)! - chore: better parseError messages
+
 ## 0.9.9
 
 ### Patch Changes
