@@ -2899,7 +2899,7 @@ var VALIDATION_TESTS = [
 	},
 	{
 		// Support attribute selector's case-insensitive flag
-		input: "input[dir=auto i]:is([type=search i], [type=tel i], [type=url i], [type=email i]), textarea[dir=auto i], pre[dir=auto i], img:is([sizes=\"auto\" i], [sizes^='auto,' i])  {}",
+		input: "input[dir=auto i]:is([type=search i], [type=tel i], [type=url i],\n[type=email i]), textarea[dir=auto i], pre[dir=auto i], img:is([sizes=\"auto\" i], [sizes^='auto,' i])  {}",
 		result: (function() {
 			var result = {
 				cssRules: [
