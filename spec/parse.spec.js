@@ -2919,6 +2919,14 @@ var VALIDATION_TESTS = [
 			return result;
 		})()
 	},
+	{
+		// Invalid newline inside quotes
+		input: ":lang(\"\nen\") {}",
+		result: {
+			cssRules: [],
+			parentStyleSheet: null
+		}
+	},
 ]
 
 function itParse(input, result) {
