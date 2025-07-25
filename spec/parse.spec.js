@@ -2899,7 +2899,7 @@ var VALIDATION_TESTS = [
 	},
 	{
 		// Support attribute selector's case-insensitive flag
-		input: "input[dir=auto i]:is([type=search i], [type=tel i], [type=url i], [type=email i]), textarea[dir=auto i], pre[dir=auto i], img:is([sizes=\"auto\" i], [sizes^='auto,' i])  {}",
+		input: "input[dir=auto i]:is([type=search i], [type=tel i], [type=url i],\n[type=email i]), textarea[dir=auto i], pre[dir=auto i], img:is([sizes=\"auto\" i], [sizes^='auto,' i])  {}",
 		result: (function() {
 			var result = {
 				cssRules: [
@@ -2918,6 +2918,14 @@ var VALIDATION_TESTS = [
 			result.cssRules[0].style.parentRule = result.cssRules[0];
 			return result;
 		})()
+	},
+	{
+		// Invalid newline inside quotes
+		input: ":lang(\"\nen\") {}",
+		result: {
+			cssRules: [],
+			parentStyleSheet: null
+		}
 	},
 ]
 
