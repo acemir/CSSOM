@@ -1697,6 +1697,24 @@ var TESTS = [
 			return result;
 		})()
 	},
+{
+		// Deeply nested complex selector
+		input: "@counter-style foo { system: cyclic; symbols: ‣; suffix: \" \"; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssText: "@counter-style foo { system: cyclic; symbols: ‣; suffix: \" \"; }",
+						name: "foo",
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			return result;
+		})()
+	},
 ];
 
 var CSS_NESTING_TESTS = [

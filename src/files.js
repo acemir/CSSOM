@@ -4,6 +4,7 @@ exports.files = [
 	"CSSNestedDeclarations",
 	"CSSGroupingRule",
 	"CSSStyleRule",
+	"CSSCounterStyleRule",
 	"CSSConditionRule",
 	"MediaList",
 	"CSSMediaRule",
