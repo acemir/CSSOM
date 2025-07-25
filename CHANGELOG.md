@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.7
+
+### Patch Changes
+
+- [#19](https://github.com/acemir/CSSOM/pull/19) [`ee897f0`](https://github.com/acemir/CSSOM/commit/ee897f0f459da7f482b2af7a3bf9cea56ab40eab) Thanks [@acemir](https://github.com/acemir)! - feat: draft support for CSSCounterStyleRule
+
 ## 0.9.6
 
 ### Patch Changes
