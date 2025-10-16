@@ -11,7 +11,7 @@ describe('CSSOM', function() {
             rule.cssText = cssText;
             expect(rule.prefix).toBe('a');
             expect(rule.namespaceURI).toBe('');
-            expect(rule.cssText).toBe('@namespace a url();');
+            expect(rule.cssText).toBe('@namespace a url("");');
         });
 
         given('@namespace url();', function(cssText) {
@@ -19,7 +19,7 @@ describe('CSSOM', function() {
             rule.cssText = cssText;
             expect(rule.prefix).toBe('');
             expect(rule.namespaceURI).toBe('');
-            expect(rule.cssText).toBe('@namespace url();');
+            expect(rule.cssText).toBe('@namespace url("");');
         });
 
         given('@namespace url(http://example.com);', function(cssText) {
@@ -27,7 +27,7 @@ describe('CSSOM', function() {
             rule.cssText = cssText;
             expect(rule.prefix).toBe('');
             expect(rule.namespaceURI).toBe('http://example.com');
-            expect(rule.cssText).toBe('@namespace url(http://example.com);');
+            expect(rule.cssText).toBe('@namespace url("http://example.com");');
         });
 
         given('@namespace a url(http://example.com);', function(cssText) {
@@ -35,7 +35,7 @@ describe('CSSOM', function() {
             rule.cssText = cssText;
             expect(rule.prefix).toBe('a');
             expect(rule.namespaceURI).toBe('http://example.com');
-            expect(rule.cssText).toBe('@namespace a url(http://example.com);');
+            expect(rule.cssText).toBe('@namespace a url("http://example.com");');
         });
     });
 });

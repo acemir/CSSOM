@@ -31,7 +31,7 @@ describe('CSSOM', function() {
 
 				var insertedIndex = s.insertRule("b {color: black;}");
 				expect(insertedIndex).toEqual(0);
-				expect(s.cssRules[0].cssText).toEqual("b {color: black;}");
+				expect(s.cssRules[0].cssText).toEqual("b { color: black; }");
 			});
 
 			it('should throw error on multiple rules', function () {
