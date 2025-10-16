@@ -2722,6 +2722,41 @@ var VALIDATION_TESTS = [
 		}
 	},
 	{
+		// Valid @layer statement with dot between letters (should be valid)
+		input: "@layer valid.name;",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						nameList: ["valid.name"],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			return result;
+		})()
+	},
+	{
+		// Valid @layer block with dot between letters (should be valid)
+		input: "@layer valid.name {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						name: "valid.name",
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			return result;
+		})()
+	},	
+	{
 		// Unexpected closing followed by invalid block folowed by valid block
 		input: "a{} b{}} c{} d{}",
 		result: (function() {
