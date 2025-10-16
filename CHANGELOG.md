@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.13
+
+### Patch Changes
+
+- [`9703341`](https://github.com/acemir/CSSOM/commit/9703341d31b610b40128956707c4f0aa24b7d9eb) Thanks [@acemir](https://github.com/acemir)! - fix: standardizes the cssText getters
+
 ## 0.9.12
 
 ### Patch Changes
