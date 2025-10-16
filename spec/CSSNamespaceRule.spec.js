@@ -5,5 +5,21 @@ describe('CSSOM', function() {
             rule.cssText = cssText;
             expect(rule.namespaceURI).toBe('http://www.w3.org/1999/xhtml');
         });
+
+        given('@namespace a url();', function(cssText) {
+            var rule = new CSSOM.CSSNamespaceRule;
+            rule.cssText = cssText;
+            expect(rule.prefix).toBe('a');
+            expect(rule.namespaceURI).toBe('');
+            expect(rule.cssText).toBe('@namespace a url();');
+        });
+
+        given('@namespace url();', function(cssText) {
+            var rule = new CSSOM.CSSNamespaceRule;
+            rule.cssText = cssText;
+            expect(rule.prefix).toBe('');
+            expect(rule.namespaceURI).toBe('');
+            expect(rule.cssText).toBe('@namespace url();');
+        });
     });
 });

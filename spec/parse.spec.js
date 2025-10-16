@@ -1715,6 +1715,9 @@ var TESTS = [
 			return result;
 		})()
 	},
+];
+
+var CSS_NAMESPACE_TESTS = [
 	{
 		// Namespace selector with universal namespace
 		input: "*|body { color: red; }",
@@ -1838,6 +1841,17 @@ var TESTS = [
 	{
 		// Namespace selector with custom prefix
 		input: "custom|div { margin: 10px; }",
+		result: (function() {
+			var result = {
+				cssRules: [],
+				parentStyleSheet: null
+			};
+			return result;
+		})()
+	},
+	{
+		// Valid namespace with declaration
+		input: "@namespace wrong invaldurl('http://example.com'); wrong|div { color: green; }",
 		result: (function() {
 			var result = {
 				cssRules: [],
@@ -3140,6 +3154,12 @@ describe('CSSOM', function () {
 			}
 			CSSOM.parse(input, parseErrorHandler);
 			expect(parseErrors.length).toBe(1);
+		});
+	});
+
+	describe('parse CSS NAMESPACE', function () {
+		CSS_NAMESPACE_TESTS.forEach(function (test) {
+			given(test.input, itParse.bind(this, test.input, test.result));
 		});
 	});
 
