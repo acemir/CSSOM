@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.12
+
+### Patch Changes
+
+- [#31](https://github.com/acemir/CSSOM/pull/31) [`5a863c0`](https://github.com/acemir/CSSOM/commit/5a863c0300297048376c7254b037391e6bdb564e) Thanks [@acemir](https://github.com/acemir)! - fix: support namespace with filled unquoted url
+
 ## 0.9.11
 
 ### Patch Changes
