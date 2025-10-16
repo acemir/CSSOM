@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.15
+
+### Patch Changes
+
+- [#37](https://github.com/acemir/CSSOM/pull/37) [`cb267e6`](https://github.com/acemir/CSSOM/commit/cb267e6ef2a08712e221ef1b155534923cb42ac7) Thanks [@acemir](https://github.com/acemir)! - fix: adjust DOMException errors names
+
 ## 0.9.14
 
 ### Patch Changes
