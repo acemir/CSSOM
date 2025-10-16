@@ -1,5 +1,15 @@
 # @acemir/cssom
 
+## 0.9.11
+
+### Patch Changes
+
+- [#29](https://github.com/acemir/CSSOM/pull/29) [`be06274`](https://github.com/acemir/CSSOM/commit/be06274b169eb31bec78714a77126f9769e2dde2) Thanks [@acemir](https://github.com/acemir)! - fix: improve valid `@layer` name logic
+
+- [#30](https://github.com/acemir/CSSOM/pull/30) [`cd35009`](https://github.com/acemir/CSSOM/commit/cd350095e52e04300a62e6f66a1dac35acb0ce22) Thanks [@acemir](https://github.com/acemir)! - feat: added support for CSSNamespaceRule
+
+- [#27](https://github.com/acemir/CSSOM/pull/27) [`76a68b9`](https://github.com/acemir/CSSOM/commit/76a68b95efda99a9f62fe1d254e68b5a58f0732a) Thanks [@acemir](https://github.com/acemir)! - chore: improve stylesheet insert and delete rule
+
 ## 0.9.10
 
 ### Patch Changes
