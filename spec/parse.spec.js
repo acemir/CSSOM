@@ -206,6 +206,32 @@ var TESTS = [
 		})()
 	},
 	{
+		input: "a[run|=one] {color: red}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: "a[run|=one]",
+						style: {
+							0: "color",
+							color: "red",
+							__starts: 2,
+							length: 1
+						},
+						parentRule: null,
+						__starts: 0,
+						__ends: 14
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
 		input: "*/**/{}",
 		result: (function() {
 			var result = {
@@ -1860,6 +1886,7 @@ var CSS_NAMESPACE_TESTS = [
 			return result;
 		})()
 	},
+
 ];
 
 var CSS_NESTING_TESTS = [
