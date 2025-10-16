@@ -1697,7 +1697,7 @@ var TESTS = [
 			return result;
 		})()
 	},
-{
+	{
 		// Deeply nested complex selector
 		input: "@counter-style foo {\n  system: cyclic;\n  symbols: ‣;\n  suffix: \" \";\n}",
 		result: (function() {
@@ -1712,6 +1712,151 @@ var TESTS = [
 				parentStyleSheet: null
 			}
 			result.cssRules[0].parentStyleSheet = result;
+			return result;
+		})()
+	},
+];
+
+var CSS_NAMESPACE_TESTS = [
+	{
+		// Namespace selector with universal namespace
+		input: "*|body { color: red; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: "*|body",
+						style: {
+							0: "color",
+							color: "red",
+							__starts: 7,
+							length: 1
+						},
+						parentRule: null,
+						__starts: 0,
+						__ends: 21
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Namespace selector with empty prefix (default namespace)
+		input: "|p { font-size: 14px; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: "|p",
+						style: {
+							0: "font-size",
+							"font-size": "14px",
+							__starts: 4,
+							length: 1
+						},
+						parentRule: null,
+						__starts: 0,
+						__ends: 22
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Mixed namespace and regular selectors
+		input: "*|body, div { color: blue; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: "*|body, div",
+						style: {
+							0: "color",
+							color: "blue",
+							__starts: 14,
+							length: 1
+						},
+						parentRule: null,
+						__starts: 0,
+						__ends: 28
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Valid namespace with declaration
+		input: "@namespace custom url('http://example.com'); custom|div { color: green; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						prefix: "custom",
+						namespaceURI: "http://example.com",
+						parentStyleSheet: null,
+						styleSheet: {
+							cssRules: [],
+							parentStyleSheet: null
+						},
+						parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: "custom|div",
+						style: {
+							0: "color",
+							color: "green",
+							__starts: 60,
+							length: 1
+						},
+						parentRule: null,
+						__starts: 45,
+						__ends: 74
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].styleSheet.parentStyleSheet = result;
+			result.cssRules[1].parentStyleSheet = result;
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Namespace selector with custom prefix
+		input: "custom|div { margin: 10px; }",
+		result: (function() {
+			var result = {
+				cssRules: [],
+				parentStyleSheet: null
+			};
+			return result;
+		})()
+	},
+	{
+		// Valid namespace with declaration
+		input: "@namespace wrong invaldurl('http://example.com'); wrong|div { color: green; }",
+		result: (function() {
+			var result = {
+				cssRules: [],
+				parentStyleSheet: null
+			};
 			return result;
 		})()
 	},
@@ -3009,6 +3154,12 @@ describe('CSSOM', function () {
 			}
 			CSSOM.parse(input, parseErrorHandler);
 			expect(parseErrors.length).toBe(1);
+		});
+	});
+
+	describe('parse CSS NAMESPACE', function () {
+		CSS_NAMESPACE_TESTS.forEach(function (test) {
+			given(test.input, itParse.bind(this, test.input, test.result));
 		});
 	});
 

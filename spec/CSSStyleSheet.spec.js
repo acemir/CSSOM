@@ -105,6 +105,16 @@ describe('CSSOM', function() {
 
 				expect(s.cssRules.length).toBe(0);
 			});
+			it('should throw error on deleting a @namespace rule when list contains anything other than @import or @namespace rules', function () {
+				var s = new CSSOM.CSSStyleSheet;
+				s.insertRule("@namespace a url()", 0);
+				s.insertRule("b {}", 1);
+				expect(function() {
+					s.deleteRule(0)
+				}).toThrow("Failed to execute 'deleteRule' on 'CSSStyleSheet': Deleting a CSSNamespaceRule is not allowed when there is rules other than @import, @layer statement, or @namespace.");
+				
+				expect(s.cssRules.length).toBe(2);
+			});
 		});
 	});
 });
