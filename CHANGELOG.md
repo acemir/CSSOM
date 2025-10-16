@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.14
+
+### Patch Changes
+
+- [#35](https://github.com/acemir/CSSOM/pull/35) [`e278d07`](https://github.com/acemir/CSSOM/commit/e278d076e6b62fdaab43f64a5b59ce46d11c84a5) Thanks [@acemir](https://github.com/acemir)! - fix: attribute selector support
+
 ## 0.9.13
 
 ### Patch Changes
