@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.16
+
+### Patch Changes
+
+- [#39](https://github.com/acemir/CSSOM/pull/39) [`c3c8d12`](https://github.com/acemir/CSSOM/commit/c3c8d12f50483b1ea3fcf9d2aace9e9984b25487) Thanks [@acemir](https://github.com/acemir)! - fix: workaround for jsdom exceptions
+
 ## 0.9.15
 
 ### Patch Changes
