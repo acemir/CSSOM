@@ -48,6 +48,46 @@ function stringifyObjectKey(key) {
 
 
 /**
+ * Get object keys including prototype getters for CSSOM objects
+ * @param {Object} object
+ * @return {Array<string>}
+ */
+function getObjectKeys(object) {
+	var keys = Object.keys(object);
+	
+	// Add prototype getters for CSSOM objects
+	var prototypeGetters = ['parentRule', 'parentStyleSheet', 'selectorText', 'style'];
+	for (var i = 0; i < prototypeGetters.length; i++) {
+		var prop = prototypeGetters[i];
+		// Check if the property exists as a getter on the prototype chain
+		// and if it's not already in the own properties
+		if (keys.indexOf(prop) === -1 && hasPrototypeGetter(object, prop)) {
+			keys.push(prop);
+		}
+	}
+	
+	return keys;
+}
+
+/**
+ * Check if an object has a getter for the given property in its prototype chain
+ * @param {Object} object
+ * @param {string} property
+ * @return {boolean}
+ */
+function hasPrototypeGetter(object, property) {
+	var obj = object;
+	while (obj) {
+		var descriptor = Object.getOwnPropertyDescriptor(obj, property);
+		if (descriptor && typeof descriptor.get === 'function') {
+			return true;
+		}
+		obj = Object.getPrototypeOf(obj);
+	}
+	return false;
+}
+
+/**
  * @param {Object} object
  * @return {DocumentFragment}
  */
@@ -97,7 +137,7 @@ function inspect(object) {
 						root.appendChild(span);
 					}
 				} else {
-					var keys = Object.keys(object);
+					var keys = getObjectKeys(object);
 					length = keys.length;
 					if (length === 0) {
 						span = span.cloneNode(false);
