@@ -55,6 +55,12 @@ function stringifyObjectKey(key) {
 function getObjectKeys(object) {
 	var keys = Object.keys(object);
 	
+	// Filter out specific __ prefixed properties that have getter equivalents
+	var hiddenProperties = ['__parentRule', '__parentStyleSheet', '__selectorText', '__style'];
+	keys = keys.filter(function(key) {
+		return hiddenProperties.indexOf(key) === -1;
+	});
+	
 	// Add prototype getters for CSSOM objects
 	var prototypeGetters = ['parentRule', 'parentStyleSheet', 'selectorText', 'style'];
 	for (var i = 0; i < prototypeGetters.length; i++) {
