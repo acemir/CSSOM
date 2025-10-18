@@ -86,11 +86,11 @@ describe('CSSOM', function() {
 				var rule = new CSSOM.CSSGroupingRule;
 
 				expect(function() {
-					rule.insertRule("a {color: blue}", -1);
-				}).toThrow("INDEX_SIZE_ERR");
-				expect(function() {
 					rule.insertRule("a {color: blue}", 1);
-				}).toThrow("INDEX_SIZE_ERR");
+				}).toThrow("Failed to execute 'insertRule' on 'CSSGroupingRule': The index provided (1) is larger than the maximum index (0).");
+				expect(function() {
+					rule.insertRule("a {color: blue}", -1);
+				}).toThrow("Failed to execute 'insertRule' on 'CSSGroupingRule': The index provided (4294967295) is larger than the maximum index (0).");
 
 				expect(rule.cssRules.length).toBe(0);
 			});
