@@ -2821,6 +2821,7 @@ var VALIDATION_TESTS = [
 		})()
 	},
 	// In the browser, an empty layer() is not processed as a unamed layer
+	// invalid layer declaration should be parsed as <general-enclosed> media query
 	{
 		input: '@import "partial.css" layer()',
 		result: (function() {
@@ -2831,7 +2832,8 @@ var VALIDATION_TESTS = [
 						layerName: null,
 						supportsText: null,
 						media: {
-							length: 0
+							0: 'layer()',
+							length: 1
 						},
 						parentRule: null,
 						styleSheet: {
@@ -2845,7 +2847,8 @@ var VALIDATION_TESTS = [
 			return result;
 		})()
 	},
-	// In the browser, an invalid name inside layer() is not processed
+	// In the browser, an invalid name inside layer() is not processed as a layer
+	// invalid layer declaration should be parsed as <general-enclosed> media query
 	{
 		input: '@import "partial.css" layer(1invalid-name)',
 		result: (function() {
@@ -2856,7 +2859,8 @@ var VALIDATION_TESTS = [
 						layerName: null,
 						supportsText: null,
 						media: {
-							length: 0
+							0: 'layer(1invalid-name)',
+							length: 1
 						},
 						parentRule: null,
 						styleSheet: {
