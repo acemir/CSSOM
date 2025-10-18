@@ -1,5 +1,17 @@
 # @acemir/cssom
 
+## 0.9.17
+
+### Patch Changes
+
+- [#41](https://github.com/acemir/CSSOM/pull/41) [`a48b41f`](https://github.com/acemir/CSSOM/commit/a48b41f586ac3b63bbdd5e35b140ca1e9c78f4d3) Thanks [@acemir](https://github.com/acemir)! - feat: sync common rules interfaces
+
+  - CSSRule `parentRule` and `parentStyleSheet`, are now prototype getters to be readonly according to the CSSRule interface.
+  - CSSStyleRule `selectorText` and `style` are now prototype getter and setter according to the CSSStyleRule interface.
+  - Added a try catch to override local CSSStyleDeclaration with the one from cssstyle when needed
+  - Implemented methods and indexed getters for CSSKeyframesRule
+  - Implementd errorUtils for a more organized way to handle errors
+
 ## 0.9.16
 
 ### Patch Changes
