@@ -755,6 +755,7 @@ var TESTS = [
 		// Browsers are expected to process @font-face at the global level, independent of media conditions.
 		// Some browsers might still parse it without errors,
 		// but it's not reliable behavior and could lead to inconsistent results across different platforms.
+		// FIXED: @font-face cannot be nested anymore
 		input: "@media screen{a{color:blue !important;background:red;} @font-face { font-family: 'Arial2'; } }",
 		result: (function() {
 			var result = {
@@ -775,13 +776,6 @@ var TESTS = [
 									background: "red",
 									length: 2
 								}
-							},
-							{
-								style: {
-									0: "font-family",
-									"font-family": "'Arial2'",
-									length: 1
-								}
 							}
 						],
 						parentRule: null
@@ -789,10 +783,9 @@ var TESTS = [
 				],
 				parentStyleSheet: null
 			};
-			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
-			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0];
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
 			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
-			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
 			return result;
 		})()
 	},
