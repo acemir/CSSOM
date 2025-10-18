@@ -48,6 +48,15 @@ function stringifyObjectKey(key) {
 
 
 /**
+ * Get object keys including prototype getters for CSSOM objects
+ * @param {Object} object
+ * @return {Array<string>}
+ */
+function getObjectKeys(object) {
+	return getObjectKeysWithGetters(object);
+}
+
+/**
  * @param {Object} object
  * @return {DocumentFragment}
  */
@@ -97,7 +106,7 @@ function inspect(object) {
 						root.appendChild(span);
 					}
 				} else {
-					var keys = Object.keys(object);
+					var keys = getObjectKeys(object);
 					length = keys.length;
 					if (length === 0) {
 						span = span.cloneNode(false);

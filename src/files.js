@@ -1,5 +1,7 @@
 exports.files = [
+	"errorUtils",
 	"CSSStyleDeclaration",
+	"cssstyleTryCatchBlock",
 	"CSSRule",
 	"CSSNestedDeclarations",
 	"CSSGroupingRule",

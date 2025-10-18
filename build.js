@@ -9,7 +9,7 @@ function readFile(path) {
 }
 
 function stripCommonJS(text) {
-	return text.replace(/\/\/\.CommonJS(?:.|\n)*?\/\/\/CommonJS/g, "");
+	return text.replace(/\/\/\.CommonJS[\s\S]*?\/\/\/CommonJS/g, "");
 }
 
 var files = [readFile("CSSOM.js")];
@@ -19,7 +19,7 @@ var index_file = readFile("index.js");
 	var exports = {};
 	function require(path) {
 		var text = readFile(path + ".js");
-		files.push(stripCommonJS(text).trimLeft());
+		files.push(stripCommonJS(text));
 		return {};
 	}
 	eval(index_file);
