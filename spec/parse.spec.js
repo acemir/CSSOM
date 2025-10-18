@@ -3140,8 +3140,14 @@ function itParse(input, result) {
 	var parsed = CSSOM.parse(input);
 
 	// Performance could optimized in order of magnitude but it’s alreaddy good enough
+	// First handle circular references
 	uncircularOwnProperties(parsed);
 	uncircularOwnProperties(result);
+	
+	// Then materialize getters as own properties before comparison
+	materializeGetters(parsed);
+	materializeGetters(result);
+
 	removeUnderscored(parsed);
 	removeUnderscored(result);
 	expect(parsed).toEqualOwnProperties(result);
