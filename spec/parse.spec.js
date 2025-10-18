@@ -3185,7 +3185,7 @@ describe('CSSOM', function () {
 			var parseErrorHandler = function(error) {
 				parseErrors.push(error);
 			}
-			CSSOM.parse(input, parseErrorHandler);
+			CSSOM.parse(input, undefined, parseErrorHandler);
 			expect(parseErrors.length).toBe(1);
 		});
 	});
