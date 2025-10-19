@@ -1,5 +1,17 @@
 # @acemir/cssom
 
+## 0.9.18
+
+### Patch Changes
+
+- [#43](https://github.com/acemir/CSSOM/pull/43) [`374d9a5`](https://github.com/acemir/CSSOM/commit/374d9a542800af7bab64b542a938501ed3e26a10) Thanks [@acemir](https://github.com/acemir)! - feat: improve parse options
+  - add opts to CSSOM.parse
+  - improve insertRule and deleteRule edge cases
+  - adjust `@font-face` cannot be nested
+  - throw correct error on insertRule invalid index
+  - adjust `@import` canonical text and layer validation
+  - adjust selectorText values formatting
+
 ## 0.9.17
 
 ### Patch Changes
