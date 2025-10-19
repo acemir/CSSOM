@@ -755,6 +755,7 @@ var TESTS = [
 		// Browsers are expected to process @font-face at the global level, independent of media conditions.
 		// Some browsers might still parse it without errors,
 		// but it's not reliable behavior and could lead to inconsistent results across different platforms.
+		// FIXED: @font-face cannot be nested anymore
 		input: "@media screen{a{color:blue !important;background:red;} @font-face { font-family: 'Arial2'; } }",
 		result: (function() {
 			var result = {
@@ -775,13 +776,6 @@ var TESTS = [
 									background: "red",
 									length: 2
 								}
-							},
-							{
-								style: {
-									0: "font-family",
-									"font-family": "'Arial2'",
-									length: 1
-								}
 							}
 						],
 						parentRule: null
@@ -789,10 +783,9 @@ var TESTS = [
 				],
 				parentStyleSheet: null
 			};
-			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
-			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0];
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
 			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
-			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
 			return result;
 		})()
 	},
@@ -2828,6 +2821,7 @@ var VALIDATION_TESTS = [
 		})()
 	},
 	// In the browser, an empty layer() is not processed as a unamed layer
+	// invalid layer declaration should be parsed as <general-enclosed> media query
 	{
 		input: '@import "partial.css" layer()',
 		result: (function() {
@@ -2838,7 +2832,8 @@ var VALIDATION_TESTS = [
 						layerName: null,
 						supportsText: null,
 						media: {
-							length: 0
+							0: 'layer()',
+							length: 1
 						},
 						parentRule: null,
 						styleSheet: {
@@ -2852,7 +2847,8 @@ var VALIDATION_TESTS = [
 			return result;
 		})()
 	},
-	// In the browser, an invalid name inside layer() is not processed
+	// In the browser, an invalid name inside layer() is not processed as a layer
+	// invalid layer declaration should be parsed as <general-enclosed> media query
 	{
 		input: '@import "partial.css" layer(1invalid-name)',
 		result: (function() {
@@ -2863,7 +2859,8 @@ var VALIDATION_TESTS = [
 						layerName: null,
 						supportsText: null,
 						media: {
-							length: 0
+							0: 'layer(1invalid-name)',
+							length: 1
 						},
 						parentRule: null,
 						styleSheet: {
@@ -3185,7 +3182,7 @@ describe('CSSOM', function () {
 			var parseErrorHandler = function(error) {
 				parseErrors.push(error);
 			}
-			CSSOM.parse(input, parseErrorHandler);
+			CSSOM.parse(input, undefined, parseErrorHandler);
 			expect(parseErrors.length).toBe(1);
 		});
 	});

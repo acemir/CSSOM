@@ -88,14 +88,162 @@ describe('CSSOM', function() {
 
 				expect(s.cssRules.length).toBe(0);
 			});
+
+			it('should throw error on invalid index', function () {
+				var s = new CSSOM.CSSStyleSheet;
+
+				expect(function() {
+					s.insertRule("a {color: blue}", 1);
+				}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': The index provided (1) is larger than the maximum index (0).");
+				expect(function() {
+					s.insertRule("a {color: blue}", -1);
+				}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': The index provided (4294967295) is larger than the maximum index (0).");
+
+				expect(s.cssRules.length).toBe(0);
+			});
+
+			describe('rule ordering edge cases', function () {
+				it('should allow @layer rules at the beginning', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@layer base;", 0);
+					s.insertRule("@layer theme;", 1);
+					expect(s.cssRules.length).toBe(2);
+				});
+
+				it('should throw error when inserting @import after @layer rules', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@layer base;", 0);
+					
+					expect(function() {
+						s.insertRule("@import url('test.css');", 1);
+					}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': Failed to insert the rule.");
+				});
+
+				it('should allow @layer rules before @import rules', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@import url('test.css');", 0);
+					s.insertRule("@layer base;", 0); // Insert @layer before @import
+					expect(s.cssRules.length).toBe(2);
+				});
+
+				it('should allow @namespace rules after @import rules', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@import url('test.css');", 0);
+					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 1);
+					expect(s.cssRules.length).toBe(2);
+				});
+
+				it('should throw error when inserting @import after @namespace', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 0);
+					
+					expect(function() {
+						s.insertRule("@import url('test.css');", 1);
+					}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': Failed to insert the rule.");
+				});
+
+				it('should throw error when inserting @import after regular rules', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("body { margin: 0; }", 0);
+					
+					expect(function() {
+						s.insertRule("@import url('test.css');", 1);
+					}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': Failed to insert the rule.");
+				});
+
+				it('should throw error when inserting @namespace before @import', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@import url('test.css');", 0);
+					
+					expect(function() {
+						s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 0);
+					}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': Failed to insert the rule.");
+				});
+
+				it('should throw error when inserting @namespace after regular rules', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("body { margin: 0; }", 0);
+					
+					expect(function() {
+						s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 1);
+					}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': Failed to insert the rule.");
+				});
+
+				it('should throw error when inserting regular rules before @layer', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@layer base;", 0);
+					
+					expect(function() {
+						s.insertRule("body { margin: 0; }", 0);
+					}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': Failed to insert the rule.");
+				});
+
+				it('should throw error when inserting regular rules before @import', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@import url('test.css');", 0);
+					
+					expect(function() {
+						s.insertRule("body { margin: 0; }", 0);
+					}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': Failed to insert the rule.");
+				});
+
+				it('should throw error when inserting regular rules before @namespace', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 0);
+					
+					expect(function() {
+						s.insertRule("body { margin: 0; }", 0);
+					}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': Failed to insert the rule.");
+				});
+
+				it('should allow proper ordering: @import, @layer, @namespace, regular rules', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@import url('test.css');", 0);
+					s.insertRule("@layer base;", 1);
+					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 2);
+					s.insertRule("body { margin: 0; }", 3);
+					
+					expect(s.cssRules.length).toBe(4);
+				});
+
+				it('should allow alternative proper ordering: @layer, @namespace, regular rules', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@layer base;", 0);
+					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 1);
+					s.insertRule("body { margin: 0; }", 2);
+					
+					expect(s.cssRules.length).toBe(3);
+				});
+
+				it('should allow inserting multiple @import rules in sequence', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@import url('base.css');", 0);
+					s.insertRule("@import url('theme.css');", 1);
+					s.insertRule("@import url('components.css');", 2);
+					
+					expect(s.cssRules.length).toBe(3);
+				});
+
+				it('should allow inserting multiple @namespace rules in sequence', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 0);
+					s.insertRule("@namespace html url('http://www.w3.org/1999/xhtml');", 1);
+					
+					expect(s.cssRules.length).toBe(2);
+				});
+			});
 		});
 
 		describe('deleteRule', function () {
-			it('should throw error on unreachable index', function () {
+			it('should throw error on missing arguments', function () {
 				var s = new CSSOM.CSSStyleSheet;
 				expect(function() {
 					s.deleteRule();
 				}).toThrow("Failed to execute 'deleteRule' on 'CSSStyleSheet': 1 argument required, but only 0 present.");
+			});
+
+			it('should throw error on invalid index', function () {
+				var s = new CSSOM.CSSStyleSheet;
 				expect(function() {
 					s.deleteRule(0);
 				}).toThrow("Failed to execute 'deleteRule' on 'CSSStyleSheet': The index provided (0) is larger than the maximum index (0).");
@@ -105,15 +253,18 @@ describe('CSSOM', function() {
 
 				expect(s.cssRules.length).toBe(0);
 			});
-			it('should throw error on deleting a @namespace rule when list contains anything other than @import or @namespace rules', function () {
-				var s = new CSSOM.CSSStyleSheet;
-				s.insertRule("@namespace a url()", 0);
-				s.insertRule("b {}", 1);
-				expect(function() {
-					s.deleteRule(0)
-				}).toThrow("Failed to execute 'deleteRule' on 'CSSStyleSheet': Deleting a CSSNamespaceRule is not allowed when there is rules other than @import, @layer statement, or @namespace.");
-				
-				expect(s.cssRules.length).toBe(2);
+
+			describe('rule ordering edge cases', function () {				
+				it('should throw error on deleting a @namespace rule when list contains anything other than @import or @namespace rules', function () {
+					var s = new CSSOM.CSSStyleSheet;
+					s.insertRule("@namespace a url()", 0);
+					s.insertRule("b {}", 1);
+					expect(function() {
+						s.deleteRule(0)
+					}).toThrow("Failed to execute 'deleteRule' on 'CSSStyleSheet': Failed to delete rule.");
+					
+					expect(s.cssRules.length).toBe(2);
+				});
 			});
 		});
 	});

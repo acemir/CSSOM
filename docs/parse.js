@@ -157,7 +157,7 @@ function outputUpdated() {
 	var value = style.value;
 	if (value !== style.prevValue) {
 		style.prevValue = value;
-		var css = CSSOM.parse(value);
+		var css = CSSOM.parse(value, undefined, true);
 		window._last_parsed = css;
 		uncircularOwnProperties(css);
 		output.innerHTML = '';
