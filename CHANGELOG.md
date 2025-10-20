@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.19
+
+### Patch Changes
+
+- [#45](https://github.com/acemir/CSSOM/pull/45) [`4092150`](https://github.com/acemir/CSSOM/commit/4092150118de5a94faaa06042281652faa0d56bf) Thanks [@acemir](https://github.com/acemir)! - fix: revert cssrule type constant as properties
+
 ## 0.9.18
 
 ### Patch Changes
