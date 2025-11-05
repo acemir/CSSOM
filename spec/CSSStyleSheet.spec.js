@@ -11,6 +11,12 @@ describe('CSSOM', function() {
 			s.insertRule("a *:first-child, a img {border: none}", 1);
 			expect(s.cssRules.length).toBe(2);
 
+			s.addRule("b", "color: red");
+			expect(s.cssRules.length).toBe(3);
+
+			s.removeRule(2);
+			expect(s.cssRules.length).toBe(2);
+
 			s.deleteRule(1);
 			expect(s.cssRules.length).toBe(1);
 
