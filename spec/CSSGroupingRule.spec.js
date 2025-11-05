@@ -3,7 +3,7 @@ describe('CSSOM', function() {
 		
 		it('insertRule, deleteRule', function() {
 			var rule = new CSSOM.CSSGroupingRule;
-			expect(rule.cssRules).toEqual([]);
+			expect([].slice.call(rule.cssRules)).toEqual([]);
 
 			rule.insertRule("a {color: blue}", 0);
 			expect(rule.cssRules.length).toBe(1);
@@ -15,7 +15,7 @@ describe('CSSOM', function() {
 			expect(rule.cssRules.length).toBe(1);
 
 			rule.deleteRule(0);
-			expect(rule.cssRules).toEqual([]);
+			expect([].slice.call(rule.cssRules)).toEqual([]);
 		});
 
 		describe('insertRule', function () {

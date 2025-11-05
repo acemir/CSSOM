@@ -3,7 +3,7 @@ describe('CSSOM', function() {
 
 		it('insertRule, deleteRule', function() {
 			var s = new CSSOM.CSSStyleSheet;
-			expect(s.cssRules).toEqual([]);
+			expect([].slice.call(s.cssRules)).toEqual([]);
 
 			s.insertRule("a {color: blue}", 0);
 			expect(s.cssRules.length).toBe(1);
@@ -15,7 +15,7 @@ describe('CSSOM', function() {
 			expect(s.cssRules.length).toBe(1);
 
 			s.deleteRule(0);
-			expect(s.cssRules).toEqual([]);
+			expect([].slice.call(s.cssRules)).toEqual([]);
 		});
 
 		describe('insertRule', function () {

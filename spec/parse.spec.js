@@ -2422,7 +2422,7 @@ var CSS_NESTING_TESTS = [
 	},
 	{		
 		// Nested Selector (ensure each selector contains '&' at the beginning, except for selectors that already have '&' somewhere)
-		input: "a { x, .y { } #z & { }  }",
+		input: "a { x, .y { } #z & { } > & { } }",
 		result: (function() {
 			var result = {
 				cssRules: [
@@ -2445,6 +2445,13 @@ var CSS_NESTING_TESTS = [
 								style: {
 									length: 0
 								},
+							},
+							{
+								cssRules: [],
+								selectorText: "& > &",
+								style: {
+									length: 0
+								},
 							}
 						],
 						parentRule: null,
@@ -2452,11 +2459,12 @@ var CSS_NESTING_TESTS = [
 				],
 				parentStyleSheet: null
 			};
-			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
-			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0];
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result.cssRules[0].cssRules[2].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0].cssRules[2].parentRule = result.cssRules[0];
 			result.cssRules[0].style.parentRule = result.cssRules[0];
 			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
 			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
+			result.cssRules[0].cssRules[2].style.parentRule = result.cssRules[0].cssRules[2];
 			return result;
 		})()
 	},
@@ -3196,6 +3204,12 @@ describe('CSSOM', function () {
 			var parsed = CSSOM.parse(input);
 			expect(parsed.cssRules[0].start).toBe(".start");
 			expect(parsed.cssRules[0].end).toBe(".end");
+		});
+
+		given("@scope(.a)to (.b){}", function (input) {
+			var parsed = CSSOM.parse(input);
+			expect(parsed.cssRules[0].start).toBe(".a");
+			expect(parsed.cssRules[0].end).toBe(".b");
 		});
 
 		given("@scope to (.end-only){}", function (input) {
