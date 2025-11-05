@@ -3198,6 +3198,12 @@ describe('CSSOM', function () {
 			expect(parsed.cssRules[0].end).toBe(".end");
 		});
 
+		given("@scope(.a)to (.b){}", function (input) {
+			var parsed = CSSOM.parse(input);
+			expect(parsed.cssRules[0].start).toBe(".a");
+			expect(parsed.cssRules[0].end).toBe(".b");
+		});
+
 		given("@scope to (.end-only){}", function (input) {
 			var parsed = CSSOM.parse(input);
 			expect(parsed.cssRules[0].start).toBe(null);
