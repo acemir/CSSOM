@@ -1,5 +1,17 @@
 # @acemir/cssom
 
+## 0.9.20
+
+### Patch Changes
+
+- [#51](https://github.com/acemir/CSSOM/pull/51) [`94945d2`](https://github.com/acemir/CSSOM/commit/94945d2a4ff61099705af832f8b645007bbb9c8f) Thanks [@acemir](https://github.com/acemir)! - feat: support legacy CSSStyleSheet methods and improve nested selectors validation
+
+- [#48](https://github.com/acemir/CSSOM/pull/48) [`2548929`](https://github.com/acemir/CSSOM/commit/25489294ef04eddbaf0eb0f4e8eeb6678a5dceeb) Thanks [@acemir](https://github.com/acemir)! - feat: support CSSScopeRule
+
+- [#47](https://github.com/acemir/CSSOM/pull/47) [`e2aff4e`](https://github.com/acemir/CSSOM/commit/e2aff4eac17f8ef0e5fb28253c49933a28481224) Thanks [@acemir](https://github.com/acemir)! - fix: forward rule validation
+
+- [#50](https://github.com/acemir/CSSOM/pull/50) [`7a127e7`](https://github.com/acemir/CSSOM/commit/7a127e79a440f7cb36c2a4ce1439029ac902f077) Thanks [@acemir](https://github.com/acemir)! - feat: support CSSRuleList and improve selectors validation
+
 ## 0.9.19
 
 ### Patch Changes
