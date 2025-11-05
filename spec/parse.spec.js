@@ -2468,6 +2468,40 @@ var CSS_NESTING_TESTS = [
 			return result;
 		})()
 	},
+	{	
+		// Nested Selector (keep & when it comes right after pseudo-class function )
+		input: ".foo { :is(div)& { color: green; }}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: ".foo",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: ":is(div)&",
+								style: {
+									0: "color",
+									color: "green",
+									length: 1
+								},
+							}
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
 	{
 		// Deep Nested At-Rule Selector + Deep Nested Selector + Nested Declaration
 		input: "@media only screen { @starting-style { html { &:not([lang]) { color: gray; } background: plum } } }",
@@ -3138,6 +3172,29 @@ var VALIDATION_TESTS = [
 			cssRules: [],
 			parentStyleSheet: null
 		}
+	},
+	{	
+		// Invalid Nested Selector
+		input: "a { &div { color: black; } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
 	},
 ]
 
