@@ -3185,6 +3185,24 @@ describe('CSSOM', function () {
 			CSSOM.parse(input, undefined, parseErrorHandler);
 			expect(parseErrors.length).toBe(1);
 		});
+
+		given("@scope {}", function (input) {
+			var parsed = CSSOM.parse(input);
+			expect(parsed.cssRules[0].start).toBe(null);
+			expect(parsed.cssRules[0].end).toBe(null);
+		});
+
+		given("@scope(.start) to (.end){}", function (input) {
+			var parsed = CSSOM.parse(input);
+			expect(parsed.cssRules[0].start).toBe(".start");
+			expect(parsed.cssRules[0].end).toBe(".end");
+		});
+
+		given("@scope to (.end-only){}", function (input) {
+			var parsed = CSSOM.parse(input);
+			expect(parsed.cssRules[0].start).toBe(null);
+			expect(parsed.cssRules[0].end).toBe(".end-only");
+		});
 	});
 
 	describe('parse CSS NAMESPACE', function () {
