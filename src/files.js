@@ -3,6 +3,7 @@ exports.files = [
 	"CSSStyleDeclaration",
 	"cssstyleTryCatchBlock",
 	"CSSRule",
+	"CSSRuleList",
 	"CSSNestedDeclarations",
 	"CSSGroupingRule",
 	"CSSStyleRule",
