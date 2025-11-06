@@ -571,6 +571,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						conditionText: "handheld, only screen and (max-device-width: 480px)",
 						media: {
 							0: "handheld",
 							1: "only screen and (max-device-width: 480px)",
@@ -609,6 +610,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						conditionText: "screen, screen, screen",
 						media: {
 							0: "screen",
 							1: "screen",
@@ -633,6 +635,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						conditionText: "print",
 						media: {
 							0: "print",
 							length: 1
@@ -681,6 +684,7 @@ var TESTS = [
 						__ends: 3
 					},
 					{
+						conditionText: "all",
 						media: {
 							0: "all",
 							length: 1
@@ -719,6 +723,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						conditionText: "(hover:hover)",
 						media: {
 							0: "(hover:hover)",
 							length: 1
@@ -761,6 +766,7 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						conditionText: "screen",
 						media: {
 							0: "screen",
 							length: 1
@@ -795,15 +801,14 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
-						parentRule: null,
+						conditionText: "(min-width: 768px)",
 						media: {
 							0: "(min-width: 768px)",
 							length: 1
 						},
-						// This is currently incorrect.
-						// conditionText: "(min-width: 768px)",
 						cssRules: [
 							{
+								conditionText: "(min-resolution: 0.001dpcm)",
 								media: {
 									0: "(min-resolution: 0.001dpcm)",
 									length: 1
@@ -824,7 +829,8 @@ var TESTS = [
 									}
 								],
 							}
-						]
+						],
+						parentRule: null
 					}
 				],
 				parentStyleSheet: null
@@ -909,6 +915,9 @@ var TESTS = [
 						},
 						parentRule: null,
 						styleSheet: {
+							media: {
+								length: 0
+							},
 							cssRules: []
 						}
 					},
@@ -944,6 +953,9 @@ var TESTS = [
 						},
 						parentRule: null,
 						styleSheet: {
+							media: {
+								length: 0
+							},
 							cssRules: []
 						}
 					},
@@ -980,6 +992,9 @@ var TESTS = [
 						},
 						parentRule: null,
 						styleSheet: {
+							media: {
+								length: 0
+							},
 							cssRules: []
 						}
 					},
@@ -1016,6 +1031,9 @@ var TESTS = [
 						},
 						parentRule: null,
 						styleSheet: {
+							media: {
+								length: 0
+							},
 							cssRules: []
 						}
 					},
@@ -1051,6 +1069,9 @@ var TESTS = [
 						},
 						parentRule: null,
 						styleSheet: {
+							media: {
+								length: 0
+							},
 							cssRules: []
 						},
 						supportsText: "display: grid"
@@ -1088,6 +1109,9 @@ var TESTS = [
 						},
 						parentRule: null,
 						styleSheet: {
+							media: {
+								length: 0
+							},
 							cssRules: []
 						}
 					}
@@ -1187,6 +1211,11 @@ var TESTS = [
 					{
 						cssRules: {
 							0: {
+								conditionText: "screen",
+								media: {
+									0: "screen",
+									length: 1
+								},
 								cssRules: {
 									0: {
 										cssRules: [],
@@ -1200,10 +1229,6 @@ var TESTS = [
 											background: "red",
 										},
 									},
-								},
-								media: {
-									0: "screen",
-									length: 1
 								}
 							},
 						},
@@ -1223,6 +1248,11 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
+						conditionText: "screen",
+						media: {
+							0: "screen",
+							length: 1
+						},
 						cssRules: {
 							0: {
 								cssRules: {
@@ -1241,11 +1271,7 @@ var TESTS = [
 								},
 							},
 						},
-						parentRule: null,
-						media: {
-							0: "screen",
-							length: 1
-						}
+						parentRule: null
 					},
 				],
 				parentStyleSheet: null,
@@ -1500,7 +1526,9 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
-						containerText: "sidebar (min-width: 400px)",
+						conditionText: "sidebar (min-width: 400px)",
+						containerName: "sidebar",
+						containerQuery: "(min-width: 400px)",
 						cssRules: [
 							{
 								cssRules: [],
@@ -1828,10 +1856,6 @@ var CSS_NAMESPACE_TESTS = [
 						prefix: "custom",
 						namespaceURI: "http://example.com",
 						parentStyleSheet: null,
-						styleSheet: {
-							cssRules: [],
-							parentStyleSheet: null
-						},
 						parentRule: null,
 					},
 					{
@@ -1851,7 +1875,6 @@ var CSS_NAMESPACE_TESTS = [
 				parentStyleSheet: null
 			};
 			result.cssRules[0].parentStyleSheet = result;
-			result.cssRules[0].styleSheet.parentStyleSheet = result;
 			result.cssRules[1].parentStyleSheet = result;
 			result.cssRules[1].style.parentRule = result.cssRules[1];
 			return result;
@@ -1930,6 +1953,7 @@ var CSS_NESTING_TESTS = [
 						},
 						cssRules: [
 							{
+								conditionText: "all",
 								media: {
 									0: "all",
 									length: 1
@@ -1965,6 +1989,7 @@ var CSS_NESTING_TESTS = [
 			var result = {
 				cssRules: [
 					{
+						conditionText: "all",
 						media: {
 							0: "all",
 							length: 1
@@ -1989,6 +2014,7 @@ var CSS_NESTING_TESTS = [
 						},
 						cssRules: [
 							{
+								conditionText: "print",
 								media: {
 									0: "print",
 									length: 1
@@ -2509,6 +2535,11 @@ var CSS_NESTING_TESTS = [
 			var result = {
 				cssRules: [
 					{
+						conditionText: "only screen",
+						media: {
+							0: "only screen",
+							length: 1
+						},
 						cssRules: [
 							{
 								cssRules: [
@@ -2539,10 +2570,6 @@ var CSS_NESTING_TESTS = [
 								]
 							}
 						],
-						media: {
-							0: "only screen",
-							length: 1
-						},
 						parentRule: null,
 					},
 				],
@@ -2721,6 +2748,7 @@ var VALIDATION_TESTS = [
 			var result = {
 				cssRules: [
 					{
+						conditionText: "all",
 						media: {
 							0: "all",
 							length: 1
@@ -2852,6 +2880,9 @@ var VALIDATION_TESTS = [
 						},
 						parentRule: null,
 						styleSheet: {
+							media: {
+								length: 0
+							},
 							cssRules: []
 						}
 					}
@@ -2879,6 +2910,9 @@ var VALIDATION_TESTS = [
 						},
 						parentRule: null,
 						styleSheet: {
+							media: {
+								length: 0
+							},
 							cssRules: []
 						}
 					}
@@ -2906,6 +2940,9 @@ var VALIDATION_TESTS = [
 						},
 						parentRule: null,
 						styleSheet: {
+							media: {
+								length: 0
+							},
 							cssRules: []
 						}
 					}
@@ -3212,6 +3249,14 @@ function itParse(input, result) {
 
 	removeUnderscored(parsed);
 	removeUnderscored(result);
+
+	// Add default media to root result
+	if (!result.media) {
+		result.media = {
+			length: 0
+		}
+	}
+
 	expect(parsed).toEqualOwnProperties(result);
 }
 
