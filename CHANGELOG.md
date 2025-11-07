@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.23
+
+### Patch Changes
+
+- [#56](https://github.com/acemir/CSSOM/pull/56) [`555f3cb`](https://github.com/acemir/CSSOM/commit/555f3cbcd5014af5d86c0bbd98ea305fae51f0a2) Thanks [@acemir](https://github.com/acemir)! - fix: prevent adding semicolon to token if it already ends with one
+
 ## 0.9.22
 
 ### Patch Changes
