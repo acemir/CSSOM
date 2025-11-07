@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.22
+
+### Patch Changes
+
+- [#54](https://github.com/acemir/CSSOM/pull/54) [`ddae783`](https://github.com/acemir/CSSOM/commit/ddae7839434edc3090f1667fb7b0e214eedf0adb) Thanks [@acemir](https://github.com/acemir)! - fix: added parseError isNested argument
+
 ## 0.9.21
 
 ### Patch Changes
