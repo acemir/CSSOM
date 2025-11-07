@@ -29,13 +29,41 @@ function getObjectKeysWithGetters(object) {
 	var keys = Object.keys(object);
 	
 	// Filter out specific __ prefixed properties that have getter equivalents
-	var hiddenProperties = ['__parentRule', '__parentStyleSheet', '__selectorText', '__style'];
+	var hiddenProperties = [
+		'__conditionText',
+		'__href',
+		'__layerName',
+		'__media',
+		'__namespaceURI',
+		'__parentRule',
+		'__parentStyleSheet',
+		'__prefix',
+		'__selectorText',
+		'__style',
+		'__styleSheet',
+		'__supportsText'
+	];
 	keys = keys.filter(function(key) {
 		return hiddenProperties.indexOf(key) === -1;
 	});
 	
 	// Add prototype getters for CSSOM objects
-	var prototypeGetters = ['parentRule', 'parentStyleSheet', 'selectorText', 'style'];
+	var prototypeGetters = [
+		'conditionText',
+		'containerName',
+		'containerQuery',
+		'href',
+		'layerName',
+		'media',
+		'namespaceURI',
+		'parentRule',
+		'parentStyleSheet',
+		'prefix',
+		'selectorText',
+		'style',
+		'styleSheet',
+		'supportsText'
+	];
 	for (var i = 0; i < prototypeGetters.length; i++) {
 		var prop = prototypeGetters[i];
 		// Check if the property exists as a getter on the prototype chain
@@ -71,7 +99,22 @@ function materializeGetters(object, stack) {
 	// Add current object to stack
 	stack.push(object);
 	
-	var prototypeGetters = ['parentRule', 'parentStyleSheet', 'selectorText', 'style'];
+	var prototypeGetters = [
+		'conditionText',
+		'containerName',
+		'containerQuery',
+		'href',
+		'layerName',
+		'media',
+		'namespaceURI',
+		'parentRule',
+		'parentStyleSheet',
+		'prefix',
+		'selectorText',
+		'style',
+		'styleSheet',
+		'supportsText'
+	];
 	for (var i = 0; i < prototypeGetters.length; i++) {
 		var prop = prototypeGetters[i];
 		if (!object.hasOwnProperty(prop) && hasPrototypeGetter(object, prop)) {
