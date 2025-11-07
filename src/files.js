@@ -25,6 +25,7 @@ exports.files = [
 	"CSSScopeRule",
 	"CSSLayerBlockRule",
 	"CSSLayerStatementRule",
+	"CSSPageRule",
 	"MatcherList",
 	"CSSDocumentRule",
 	"CSSValue",
