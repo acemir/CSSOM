@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.21
+
+### Patch Changes
+
+- [#52](https://github.com/acemir/CSSOM/pull/52) [`e912362`](https://github.com/acemir/CSSOM/commit/e912362e57ba8718d5117c3e7e358decc333ae95) Thanks [@acemir](https://github.com/acemir)! - feat: support CSSPageRule and implementation improvements
+
 ## 0.9.20
 
 ### Patch Changes
