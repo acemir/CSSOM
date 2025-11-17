@@ -273,5 +273,67 @@ describe('CSSOM', function() {
 				});
 			});
 		});
+
+		describe('replace', function () {
+			it('should replace rules asynchronously', function () {
+				var s = new CSSOM.CSSStyleSheet;
+				expect([].slice.call(s.cssRules)).toEqual([]);
+
+				s.insertRule("a {color: blue}", 0);
+				expect(s.cssRules.length).toBe(1);
+
+				expect(s.cssRules.item(0).style.color).toBe("blue");
+
+				var complete = false;
+				s.replace("a {color: red} p {color: cyan}").then(function() {
+					complete = true;
+				});
+
+				waitsFor(function() {
+					return complete;
+				})
+
+				runs(function() {
+					expect(s.cssRules.length).toBe(2);
+					expect(s.cssRules.item(0).style.color).toBe("red");
+					expect(s.cssRules.item(1).style.color).toBe("cyan");
+				})
+			})
+		});
+
+		describe('replaceSync', function () {
+			it('should replace rules', function () {
+				var s = new CSSOM.CSSStyleSheet;
+				expect([].slice.call(s.cssRules)).toEqual([]);
+
+				s.insertRule("a {color: blue}", 0);
+				expect(s.cssRules.length).toBe(1);
+
+				expect(s.cssRules.item(0).style.color).toBe("blue");
+
+				s.replaceSync("a {color: red} p {color: cyan}");
+				expect(s.cssRules.length).toBe(2);
+
+				expect(s.cssRules.item(0).style.color).toBe("red");
+				expect(s.cssRules.item(1).style.color).toBe("cyan");
+			})
+
+			it('should keep rules on error', function () {
+				var s = new CSSOM.CSSStyleSheet;
+				expect([].slice.call(s.cssRules)).toEqual([]);
+
+				s.insertRule("a {color: blue}", 0);
+				expect(s.cssRules.length).toBe(1);
+
+				s.__constructed = false;
+
+				expect(function() {
+					s.replaceSync("a {color");
+				}).toThrow("Failed to execute 'replaceSync' on 'CSSStyleSheet': Not allowed.");
+
+				expect(s.cssRules.length).toBe(1);
+				expect(s.cssRules.item(0).style.color).toBe("blue");
+			})
+		});
 	});
 });
