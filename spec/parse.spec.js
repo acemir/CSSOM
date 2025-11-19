@@ -3283,6 +3283,110 @@ var VALIDATION_TESTS = [
 			return result;
 		})()
 	},
+{
+		input: "a {color: red",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "red",
+							length: 1
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		input: "a {color: red",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "red",
+							length: 1
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		input: "a { b {",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [{
+							cssRules: [],
+							selectorText: "& b",
+							style: {
+								length: 0
+							}
+						}],
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		input: "a { b {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [{
+							cssRules: [],
+							selectorText: "& b",
+							style: {
+								length: 0
+							}
+						}],
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
 ]
 
 function itParse(input, result) {
