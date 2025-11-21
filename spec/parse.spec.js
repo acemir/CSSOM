@@ -2584,6 +2584,56 @@ var CSS_NESTING_TESTS = [
 			return result;
 		})()
 	},
+	{
+		// Deep Nested At-Rule Selector + Deep Nested Selector + Nested Selector
+		input: "@media only screen { @starting-style { html { color: gray; } } a { color: red } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						conditionText: "only screen",
+						media: {
+							0: "only screen",
+							length: 1
+						},
+						cssRules: [
+							{
+								cssRules: [
+									{
+										cssRules: [],
+										selectorText: "html",
+										style: {
+											0: "color",
+											color: "gray",
+											length: 1,
+										},
+									}
+								]
+							},
+							{
+								cssRules: [],
+								selectorText: "a",
+								style: {
+									0: "color",
+									color: "red",
+									length: 1,
+								},
+							}
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
+			return result;
+		})()
+	},
+
 ];
 
 var VALIDATION_TESTS = [
@@ -3230,6 +3280,110 @@ var VALIDATION_TESTS = [
 			};
 			result.cssRules[0].parentStyleSheet = result;
 			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+{
+		input: "a {color: red",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "red",
+							length: 1
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		input: "a {color: red",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: "a",
+						style: {
+							0: "color",
+							color: "red",
+							length: 1
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		input: "a { b {",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [{
+							cssRules: [],
+							selectorText: "& b",
+							style: {
+								length: 0
+							}
+						}],
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		input: "a { b {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [{
+							cssRules: [],
+							selectorText: "& b",
+							style: {
+								length: 0
+							}
+						}],
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
 			return result;
 		})()
 	},
