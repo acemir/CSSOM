@@ -1982,6 +1982,66 @@ var CSS_NESTING_TESTS = [
 			return result;
 		})()
 	},
+	{	
+		// Nested Selector + Nested At-Rule Selector
+		input: "a { &.x { color: black; } @media all { color: aqua; } color: red; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "&.x",
+								style: {
+									0: "color",
+									color: "black",
+									length: 1
+								},
+							},
+							{
+								conditionText: "all",
+								media: {
+									0: "all",
+									length: 1
+								},
+								cssRules: [
+									{
+										style: {
+											0: "color",
+											color: "aqua",
+											length: 1
+										}
+									}
+								],
+							},
+							{
+								style: {
+									0: "color",
+									color: "red",
+									length: 1
+								},
+							},
+						],
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result.cssRules[0].cssRules[1].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[2].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0].cssRules[2].parentRule = result.cssRules[0];
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].cssRules[0].parentRule = result.cssRules[0].cssRules[1];
+			result.cssRules[0].cssRules[1].cssRules[0].style.parentRule = result.cssRules[0].cssRules[1].cssRules[0];
+			result.cssRules[0].cssRules[2].style.parentRule = result.cssRules[0].cssRules[2];
+			return result;
+		})()
+	},
 	{
 		// At-Rule + Nested At-Rule Selector
 		input: "@media all { a {color: aqua; }} b { @media print { color: blue; } }",
@@ -2585,41 +2645,58 @@ var CSS_NESTING_TESTS = [
 		})()
 	},
 	{
-		// Deep Nested At-Rule Selector + Deep Nested Selector + Nested Selector
-		input: "@media only screen { @starting-style { html { color: gray; } } a { color: red } }",
+		// @scope should allow CSSNestedDeclarations
+		input: "@scope { color: red; }",
 		result: (function() {
 			var result = {
 				cssRules: [
 					{
-						conditionText: "only screen",
-						media: {
-							0: "only screen",
-							length: 1
-						},
-						cssRules: [
-							{
-								cssRules: [
-									{
-										cssRules: [],
-										selectorText: "html",
-										style: {
-											0: "color",
-											color: "gray",
-											length: 1,
-										},
-									}
-								]
+						cssRules: [{
+							style: {
+								0: "color",
+								color: "red",
+								length: 1
 							},
-							{
+						}],
+						start: null,
+						end: null,
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Edge case with a CSSNestedDeclarations at the end, after a nested selector inside a deep nested at-rule 
+		input: "@scope { @scope { a { } } left: 1px; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [{
+							cssRules: [{
 								cssRules: [],
 								selectorText: "a",
 								style: {
-									0: "color",
-									color: "red",
-									length: 1,
-								},
-							}
-						],
+									length: 0
+								}
+							}],
+							start: null,
+							end: null,
+						},{
+							style: {
+								0: "left",
+								left: "1px",
+								length: 1
+							},
+						}],
+						start: null,
+						end: null,
 						parentRule: null,
 					},
 				],
@@ -2633,7 +2710,6 @@ var CSS_NESTING_TESTS = [
 			return result;
 		})()
 	},
-
 ];
 
 var VALIDATION_TESTS = [
