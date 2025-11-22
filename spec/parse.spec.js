@@ -2710,6 +2710,42 @@ var CSS_NESTING_TESTS = [
 			return result;
 		})()
 	},
+{
+		// Edge case with a CSSNestedDeclarations at the end, after a nested selector inside a deep nested at-rule 
+		input: "@media { @media { a { } } left: 1px; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [{
+							cssRules: [{
+								cssRules: [],
+								selectorText: "a",
+								style: {
+									length: 0
+								}
+							}],
+							conditionText: "",
+							media: {
+								length: 0
+							},
+						}],
+						conditionText: "",
+						media: {
+							length: 0
+						},
+						parentRule: null,
+					},
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
 ];
 
 var VALIDATION_TESTS = [
