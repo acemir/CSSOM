@@ -52,6 +52,7 @@ function getObjectKeysWithGetters(object) {
 		'conditionText',
 		'containerName',
 		'containerQuery',
+		'end',
 		'href',
 		'layerName',
 		'media',
@@ -60,6 +61,7 @@ function getObjectKeysWithGetters(object) {
 		'parentStyleSheet',
 		'prefix',
 		'selectorText',
+		'start',
 		'style',
 		'styleSheet',
 		'supportsText'
@@ -103,6 +105,7 @@ function materializeGetters(object, stack) {
 		'conditionText',
 		'containerName',
 		'containerQuery',
+		'end',
 		'href',
 		'layerName',
 		'media',
@@ -111,6 +114,7 @@ function materializeGetters(object, stack) {
 		'parentStyleSheet',
 		'prefix',
 		'selectorText',
+		'start',
 		'style',
 		'styleSheet',
 		'supportsText'
