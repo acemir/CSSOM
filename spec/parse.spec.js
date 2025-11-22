@@ -1725,28 +1725,12 @@ var TESTS = [
 	},
 	{
 		// Escaped special characters in class, id, and element names
-		input: ".a\\! {} #b\\! {} :has(c\\!) {}",
+		input: "#a\\@media\\!important:is(.b\\!):has(c\\@) {}",
 		result: (function() {
 			var result = {
 				cssRules: [
 					{
-						selectorText: ".a\\!",
-						style: {
-							length: 0
-						},
-						cssRules: [],
-						parentRule: null,
-					},
-					{
-						selectorText: "#b\\!",
-						style: {
-							length: 0
-						},
-						cssRules: [],
-						parentRule: null,
-					},
-					{
-						selectorText: ":has(c\\!)",
+						selectorText: "#a\\@media\\!important:is(.b\\!):has(c\\@)",
 						style: {
 							length: 0
 						},
@@ -1756,10 +1740,8 @@ var TESTS = [
 				],
 				parentStyleSheet: null
 			}
-			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[2].parentStyleSheet = result;
+			result.cssRules[0].parentStyleSheet = result;
 			result.cssRules[0].style.parentRule = result.cssRules[0];
-			result.cssRules[1].style.parentRule = result.cssRules[1];
-			result.cssRules[2].style.parentRule = result.cssRules[2];
 			return result;
 		})()
 	},
