@@ -1,5 +1,22 @@
 # @acemir/cssom
 
+## 0.9.24
+
+### Patch Changes
+
+- [#60](https://github.com/acemir/CSSOM/pull/60) [`dc858f3`](https://github.com/acemir/CSSOM/commit/dc858f350f48ffc852ae00527ffd222e21db2ab8) Thanks [@acemir](https://github.com/acemir)! - fix: ending nested rules processing and unclosed sheet edge cases
+
+- [#62](https://github.com/acemir/CSSOM/pull/62) [`e65434c`](https://github.com/acemir/CSSOM/commit/e65434caa3f44627020d0a35be42fefce6bf8c9b) Thanks [@acemir](https://github.com/acemir)! - fix: serialization with empty nested declarations
+
+- [#63](https://github.com/acemir/CSSOM/pull/63) [`f334c70`](https://github.com/acemir/CSSOM/commit/f334c70b3f6ba825b8a4144e994dc43d671ccd9c) Thanks [@acemir](https://github.com/acemir)! - fix: parser improvements
+
+  - Fix CSSScopeRule allows CSSNestedDeclarations
+  - Fix mediaText setter with empty value
+  - Improve performance and security on selectors validation
+  - Handle escape sequences before processing special characters
+
+- [#59](https://github.com/acemir/CSSOM/pull/59) [`fccf639`](https://github.com/acemir/CSSOM/commit/fccf6393be6cad177b499608a1783d1eac7cc11f) Thanks [@Xiphoseer](https://github.com/Xiphoseer)! - feat: implement `CSSStyleSheet`: `replaceSync`, `replace`
+
 ## 0.9.23
 
 ### Patch Changes
