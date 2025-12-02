@@ -2768,6 +2768,70 @@ var CSS_NESTING_TESTS = [
 			return result;
 		})()
 	},
+	{
+		// BUG: CSS nesting with & selector followed by @media inside @layer throws TypeError
+		// "Cannot read properties of null (reading 'constructor')" at parse.js:1446
+		// The order matters: & nesting BEFORE @media fails, but @media BEFORE & nesting works
+		input: "@layer components { .A { &:hover { color: red; } } @media (min-width: 0) { .B { color: blue; } } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						name: "components",
+						cssRules: [
+							{
+								selectorText: ".A",
+								style: {
+									length: 0
+								},
+								cssRules: [
+									{
+										cssRules: [],
+										selectorText: "&:hover",
+										style: {
+											0: "color",
+											color: "red",
+											length: 1
+										},
+									}
+								],
+							},
+							{
+								conditionText: "(min-width: 0)",
+								media: {
+									0: "(min-width: 0)",
+									length: 1
+								},
+								cssRules: [
+									{
+										cssRules: [],
+										selectorText: ".B",
+										style: {
+											0: "color",
+											color: "blue",
+											length: 1
+										},
+									}
+								],
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[1].cssRules[0].parentRule = result.cssRules[0].cssRules[1];
+			result.cssRules[0].cssRules[1].cssRules[0].style.parentRule = result.cssRules[0].cssRules[1].cssRules[0];
+			return result;
+		})()
+	},
 ];
 
 var VALIDATION_TESTS = [
