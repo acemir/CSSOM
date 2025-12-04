@@ -12,7 +12,8 @@ function stripCommonJS(text) {
 	return text.replace(/\/\/\.CommonJS[\s\S]*?\/\/\/CommonJS/g, "");
 }
 
-var files = [readFile("CSSOM.js")];
+// var files = [readFile("CSSOM.js")];
+var files = [];
 var index_file = readFile("index.js");
 
 (function(){

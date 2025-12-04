@@ -760,7 +760,7 @@ var TESTS = [
 		// Browsers are expected to process @font-face at the global level, independent of media conditions.
 		// Some browsers might still parse it without errors,
 		// but it's not reliable behavior and could lead to inconsistent results across different platforms.
-		// FIXED: @font-face cannot be nested anymore
+		// FIXED: @font-face can only be nested on a CSSScopeRule or a CSSConditionRule without a nested CSSStyleRule in the parent chain.
 		input: "@media screen{a{color:blue !important;background:red;} @font-face { font-family: 'Arial2'; } }",
 		result: (function() {
 			var result = {
@@ -782,6 +782,13 @@ var TESTS = [
 									background: "red",
 									length: 2
 								}
+							},
+							{
+								style: {
+									0: "font-family",
+									"font-family": "'Arial2'",
+									length: 1
+								}
 							}
 						],
 						parentRule: null
@@ -789,9 +796,10 @@ var TESTS = [
 				],
 				parentStyleSheet: null
 			};
-			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
-			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet =  result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0];
 			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
 			return result;
 		})()
 	},
@@ -918,6 +926,8 @@ var TESTS = [
 							media: {
 								length: 0
 							},
+							disabled: false,
+							href: null,
 							cssRules: []
 						}
 					},
@@ -956,6 +966,8 @@ var TESTS = [
 							media: {
 								length: 0
 							},
+							disabled: false,
+							href: null,
 							cssRules: []
 						}
 					},
@@ -995,6 +1007,8 @@ var TESTS = [
 							media: {
 								length: 0
 							},
+							disabled: false,
+							href: null,
 							cssRules: []
 						}
 					},
@@ -1034,6 +1048,8 @@ var TESTS = [
 							media: {
 								length: 0
 							},
+							disabled: false,
+							href: null,
 							cssRules: []
 						}
 					},
@@ -1072,6 +1088,8 @@ var TESTS = [
 							media: {
 								length: 0
 							},
+							disabled: false,
+							href: null,
 							cssRules: []
 						},
 						supportsText: "display: grid"
@@ -1112,6 +1130,8 @@ var TESTS = [
 							media: {
 								length: 0
 							},
+							disabled: false,
+							href: null,
 							cssRules: []
 						}
 					}
@@ -1767,13 +1787,12 @@ var TESTS = [
 		})()
 	},
 	{
-		// Deeply nested complex selector
-		input: "@counter-style foo {\n  system: cyclic;\n  symbols: ‣;\n  suffix: \" \";\n}",
+		// Onlu single name without dots is valid in @counter-style rule
+		input: "@counter-style { } @counter-style foo { } @counter-style foo bar { } @counter-style foo.bar{ }",
 		result: (function() {
 			var result = {
 				cssRules: [
 					{
-						cssText: "@counter-style foo { system: cyclic; symbols: ‣; suffix: \" \"; }",
 						name: "foo",
 						parentRule: null,
 					},
@@ -3131,6 +3150,8 @@ var VALIDATION_TESTS = [
 							media: {
 								length: 0
 							},
+							disabled: false,
+							href: null,
 							cssRules: []
 						}
 					}
@@ -3161,6 +3182,8 @@ var VALIDATION_TESTS = [
 							media: {
 								length: 0
 							},
+							disabled: false,
+							href: null,
 							cssRules: []
 						}
 					}
@@ -3191,6 +3214,8 @@ var VALIDATION_TESTS = [
 							media: {
 								length: 0
 							},
+							disabled: false,
+							href: null,
 							cssRules: []
 						}
 					}
@@ -3251,7 +3276,137 @@ var VALIDATION_TESTS = [
 			result.cssRules[0].parentStyleSheet = result;
 			return result;
 		})()
-	},	
+	},
+	{
+		// CSSLayerStatementRule can appear:
+		// - At the top level of a stylesheet.
+		// - Inside CSSLayerBlockRule.
+		// - Inside grouping rules (CSSMediaRule, CSSSupportsRule, CSSContainerRule, etc.)
+		// It cannot appear:
+		// - Inside CSSStyleRule (or any nested context that has a CSSStyleRule in its parent chain)
+		input: "@layer outer { @layer foo.bar, baz; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						name: "outer",
+						cssRules: [
+							{
+								nameList: ["foo.bar", "baz"],
+								parentRule: null,
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// Should auto-close the div
+		input: "div { @media screen { color: red; & { color: red; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "div",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								conditionText: "screen",
+								media: {
+									0: "screen",
+									length: 1
+								},
+								cssRules: [
+									{
+										style: {
+											0: "color",
+											color: "red",
+											length: 1
+										}
+									},
+									{
+										cssRules: [],
+										selectorText: "&",
+										style: {
+											0: "color",
+											color: "red",
+											length: 1
+										}
+									}
+								]
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[1].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[0].cssRules[1];
+			return result;
+		})()
+	},
+	{
+		// Invalid selectors inside pseudo-classes with selector lists
+		// - Invalid !& nested selector should be ignored
+		// - Invalid selectors inside pseudo-classes with selector lists should be ignored and & should be prepended to the valid ones
+		// 	 - Exception: When there is any ocurrence of & inside the pseudo-class with selector lists, the validation is ignored and the selector is kept as-is without prepending &
+		input: ".a { !& {} :is(@invalid, .b, @bad, .c):not(@bad, .d) { color: red; } :is(!& .foo, .e) { color: green; } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: ".a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "& :is(.b, .c):not(.d)",
+								style: {
+									0: "color",
+									color: "red",
+									length: 1
+								},
+							},
+							{
+								cssRules: [],
+								selectorText: ":is(!& .foo, .e)",
+								style: {
+									0: "color",
+									color: "green",
+									length: 1
+								},
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[1];
+			return result;
+		})()
+	},
 	{
 		// Unexpected closing followed by invalid block folowed by valid block
 		input: "a{} b{}} c{} d{}",
@@ -3610,11 +3765,17 @@ function itParse(input, result) {
 	removeUnderscored(parsed);
 	removeUnderscored(result);
 
-	// Add default media to root result
+	// Add defaults to root result
 	if (!result.media) {
 		result.media = {
 			length: 0
 		}
+	}
+	if (!result.disabled) {
+		result.disabled = false;
+	}
+	if (!result.href) {
+		result.href = null;
 	}
 
 	expect(parsed).toEqualOwnProperties(result);
