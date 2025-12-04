@@ -1,4 +1,5 @@
 exports.files = [
+	"CSSOM",
 	"errorUtils",
 	"CSSStyleDeclaration",
 	"cssstyleTryCatchBlock",

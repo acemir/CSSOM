@@ -157,6 +157,40 @@ describe('CSSOM', function() {
 					expect(rule.cssRules[0].constructor.name).toBe("CSSKeyframesRule");
 				});
 			});
+
+			describe("allows nested declarations", function () {
+				it('should work on nested selectors', function() {
+					var sheet = new CSSOM.CSSStyleSheet;
+					sheet.replaceSync('.a {}');
+					expect(sheet.cssRules.length).toBe(1);
+					var rule = sheet.cssRules[0];
+					expect(rule.cssRules.length).toBe(0);
+					rule.insertRule(`
+						width: 100px;
+						height: 200px;
+					`);
+					expect(rule.cssRules.length).toBe(1);
+					expect(rule.cssRules[0] instanceof CSSOM.CSSNestedDeclarations).toBe(true);
+					rule.insertRule(`a {}`, 1);
+					expect(rule.cssRules[1].selectorText).toBe("& a");
+				});
+
+				it('should work on CSSScopeRule', function() {
+					var sheet = new CSSOM.CSSStyleSheet;
+					sheet.replaceSync('@scope {}');
+					expect(sheet.cssRules.length).toBe(1);
+					var rule = sheet.cssRules[0];
+					expect(rule.cssRules.length).toBe(0);
+					rule.insertRule(`
+						width: 100px;
+						height: 200px;
+					`);
+					expect(rule.cssRules.length).toBe(1);
+					expect(rule.cssRules[0] instanceof CSSOM.CSSNestedDeclarations).toBe(true);
+					rule.insertRule(`a {}`, 1);
+					expect(rule.cssRules[1].selectorText).toBe("a");
+				});
+			});
 		});
 
 		describe('deleteRule', function () {

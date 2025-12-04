@@ -2,8 +2,10 @@ describe('CSSOM', function() {
 describe('CSSStyleRule', function() {
 
 	given('h1:first-of-type {\n\tfont-size: 3em\n}', function(cssText) {
-		var rule = new CSSOM.CSSStyleRule;
-		rule.cssText = cssText;
+		var sheet = new CSSOM.CSSStyleSheet
+		sheet.replaceSync(cssText);
+		expect(sheet.cssRules.length).toBe(1);
+		var rule = sheet.cssRules[0];
 
 		expect(rule.cssText).toBe('h1:first-of-type { font-size: 3em; }');
 		expect(rule.selectorText).toBe('h1:first-of-type');

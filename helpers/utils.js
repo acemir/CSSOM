@@ -30,6 +30,7 @@ function getObjectKeysWithGetters(object) {
 	
 	// Filter out specific __ prefixed properties that have getter equivalents
 	var hiddenProperties = [
+		'__cssRules',
 		'__conditionText',
 		'__href',
 		'__layerName',
@@ -49,6 +50,7 @@ function getObjectKeysWithGetters(object) {
 	
 	// Add prototype getters for CSSOM objects
 	var prototypeGetters = [
+		'cssRules',
 		'conditionText',
 		'containerName',
 		'containerQuery',
@@ -102,6 +104,7 @@ function materializeGetters(object, stack) {
 	stack.push(object);
 	
 	var prototypeGetters = [
+		'cssRules',
 		'conditionText',
 		'containerName',
 		'containerQuery',
