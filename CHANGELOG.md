@@ -1,5 +1,27 @@
 # @acemir/cssom
 
+## 0.9.25
+
+### Patch Changes
+
+- [#66](https://github.com/acemir/CSSOM/pull/66) [`e369d14`](https://github.com/acemir/CSSOM/commit/e369d14053b827fc19a7f1d3b5a1da39455e307d) Thanks [@Naycon](https://github.com/Naycon)! - Fix TypeError when parsing @media after nested selectors inside @layer
+
+  When parsing CSS with nested selectors (&) followed by @media rules inside an @layer block, the parser would crash with "Cannot read properties of null (reading 'constructor')" because nestedSelectorRule.parentRule can be null when the parent context is a CSSLayerBlockRule rather than a CSSStyleRule.
+
+- [#69](https://github.com/acemir/CSSOM/pull/69) [`52b93c7`](https://github.com/acemir/CSSOM/commit/52b93c7e9bb1d21ebe83c3c044dd4f08da69f131) Thanks [@acemir](https://github.com/acemir)! - fix: auto-closing statement rules
+
+- [#68](https://github.com/acemir/CSSOM/pull/68) [`907a0c2`](https://github.com/acemir/CSSOM/commit/907a0c2d6c6fff0471dbcb751074fe52c6d6b88d) Thanks [@acemir](https://github.com/acemir)! - feat: rules interfaces and parse improvements
+  - Expose CSSOM.setup method for globalObject configuration
+  - Add StyleSheet missing interface properties
+  - Add CSSStyleSheet constructor options and missing interface properties
+  - Set cssRules readonly on CSSStylesheet and CSSGroupingRules
+  - Fix CSSRule.cssText interface implementation
+  - Improve pseudo-class with selectors list validations
+  - Imrpove auto-close for all unclosed nested structures
+  - Handle CSSLayerStatementRule inside CSSLayerBlockRule and other grouping rules
+  - Handle CSSFontFaceRule, CSSKeyframeRule and CSSPageRule nesting edge cases
+  - Imrpove code consistency on rules type and prototype assign
+
 ## 0.9.24
 
 ### Patch Changes
