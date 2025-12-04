@@ -43,12 +43,6 @@ describe('CSSOM', function() {
 			it('should throw error on multiple rules', function () {
 				var s = new CSSOM.CSSStyleSheet;
 
-				try {
-					s.insertRule("@invalid { this is not valid css }");
-				} catch(e) {
-					console.error(e);
-				}
-
 				expect(function() {
 					s.insertRule("@invalid { this is not valid css }");
 				}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': Failed to parse the rule '@invalid { this is not valid css }'.");
