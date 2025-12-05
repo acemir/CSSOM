@@ -1,5 +1,16 @@
 # @acemir/cssom
 
+## 0.9.26
+
+### Patch Changes
+
+- [#70](https://github.com/acemir/CSSOM/pull/70) [`e597dfe`](https://github.com/acemir/CSSOM/commit/e597dfed00a1cad14ad938268f1e0627b2eb39d9) Thanks [@acemir](https://github.com/acemir)! - fix: improve CSSStyleSheet MediaList and parser
+  - CSSStyleSheet replace and replaceSync mutates cssText instead of reasign
+  - CSSStyleSheet.removeRule index defaults to 0
+  - set MediaList.mediaText to null empties the the list
+  - MediaList.toString returns the same as MediaList.mediaText
+  - CSSOM.parse initializes styleSheet.media.mediaText with the content of ownerNode media attribute when available
+
 ## 0.9.25
 
 ### Patch Changes
