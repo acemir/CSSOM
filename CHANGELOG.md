@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.27
+
+### Patch Changes
+
+- [#72](https://github.com/acemir/CSSOM/pull/72) [`f27c829`](https://github.com/acemir/CSSOM/commit/f27c829cecbf7096fdd5544b0fc4e07d52aedb46) Thanks [@acemir](https://github.com/acemir)! - feat: enhance CSSOM setup method to create instance with globalObject support
+
 ## 0.9.26
 
 ### Patch Changes
