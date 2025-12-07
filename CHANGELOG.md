@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.28
+
+### Patch Changes
+
+- [`3c2b77f`](https://github.com/acemir/CSSOM/commit/3c2b77f1309fe8613db10150b69bee6d56d2794e) Thanks [@acemir](https://github.com/acemir)! - fix: importRule stylesheet assign from globalObject
+
 ## 0.9.27
 
 ### Patch Changes
