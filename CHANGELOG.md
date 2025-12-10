@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.29
+
+### Patch Changes
+
+- [#77](https://github.com/acemir/CSSOM/pull/77) [`f1e78c0`](https://github.com/acemir/CSSOM/commit/f1e78c07ba68f32590795f5ffe330ddad3658d1c) Thanks [@acemir](https://github.com/acemir)! - fix: parsing of deeply nested at-rule combinations
+
 ## 0.9.28
 
 ### Patch Changes
