@@ -3748,6 +3748,69 @@ var VALIDATION_TESTS = [
 			parentStyleSheet: null
 		}
 	},
+	{
+		// Nested declarations inside deeply nested at-rules inside a style rule inside a at-rule
+		input: "@layer x { .a { @media all { @media all { color: red } } } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						name: "x",
+						cssRules: [
+							{
+								selectorText: ".a",
+								style: {
+									length: 0
+								},
+								cssRules: [
+									{
+										conditionText: "all",
+										media: {
+											0: "all",
+											length: 1
+										},
+										cssRules: [
+											{
+												conditionText: "all",
+												media: {
+													0: "all",
+													length: 1
+												},
+												cssRules: [
+													{
+														style: {
+															0: "color",
+															color: "red",
+															length: 1
+														}
+													}
+												]
+											}
+										]
+									}
+								],
+								parentRule: null,
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0].cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].cssRules[0];
+			return result;
+		})()
+	}
 ]
 
 function itParse(input, result) {
