@@ -23,10 +23,17 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Get next version from changesets
+        run: |
+          NEXT_VERSION=$(node scripts/next-version.js)
+          echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
+          title: "Version ${{ env.NEXT_VERSION }}"
+          commit: "Version ${{ env.NEXT_VERSION }}"
           publish: npm run release
         env:
           NODE_OPTIONS: '--max-old-space-size=4096'
