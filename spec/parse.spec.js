@@ -1803,6 +1803,25 @@ var TESTS = [
 			return result;
 		})()
 	},
+	{
+		input: "@property --my-color { syntax: \"<color>\"; inherits: false; initial-value: #c0ffee; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						name: "--my-color",
+						syntax: "<color>",
+						inherits: false,
+						initialValue: "#c0ffee",
+						parentRule: null
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			return result;
+		})()
+	},
 ];
 
 var CSS_NAMESPACE_TESTS = [
@@ -2851,6 +2870,48 @@ var CSS_NESTING_TESTS = [
 			return result;
 		})()
 	},
+	{
+		// at-rules like @counter-style, @property, and @font-face can be nested inside a CSSConditionRule without a CSSStyleRule in the parent chain
+		input: "@media screen { @counter-style foo {} @property --my-color { syntax: \"<color>\"; inherits: false; initial-value: #c0ffee; } @font-face {} }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						conditionText: "screen",
+						media: {
+							0: "screen",
+							length: 1
+						},
+						cssRules: [
+							{
+								name: "foo",
+								parentRule: null,
+							},
+							{
+								name: "--my-color",
+								syntax: "<color>",
+								inherits: false,
+								initialValue: "#c0ffee",
+								parentRule: null
+							},
+							{
+								parentRule: null,
+								style: {
+									length: 0
+								}
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[1].parentStyleSheet = result.cssRules[0].cssRules[2].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[1].parentRule = result.cssRules[0].cssRules[2].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[2].style.parentRule = result.cssRules[0].cssRules[2];
+			return result;
+		})()
+	},
 ];
 
 var VALIDATION_TESTS = [
@@ -3868,8 +3929,96 @@ var VALIDATION_TESTS = [
 			result.cssRules[0].cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[0].cssRules[1];
 			return result;
 		})()
-	}
-]
+	},
+	{
+		// at-rules like @counter-style, @property, and @font-face CANNOT be nested inside CSSStyleRule
+		input: "a { @counter-style foo {} @property --my-color { syntax: \"<color>\"; inherits: false; initial-value: #c0ffee; } @font-face {} }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// at-rules like @counter-style, @property, and @font-face CANNOT be nested inside a CSSConditionRule with CSSStyleRule in parent chain
+		input: "@media screen { a { @counter-style foo {} @property --my-color { syntax: \"<color>\"; inherits: false; initial-value: #c0ffee; } @font-face {} } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						conditionText: "screen",
+						media: {
+							0: "screen",
+							length: 1
+						},
+						cssRules: [
+							{
+								selectorText: "a",
+								style: {
+									length: 0
+								},
+								cssRules: [],
+								parentRule: null,
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
+	{
+		// at-rules like @counter-style, @property, and @font-face CANNOT be nested inside CSSStyleRule even when that style rule is inside a CSSConditionRule
+		input: "a { @media screen { @counter-style foo {} @property --my-color { syntax: \"<color>\"; inherits: false; initial-value: #c0ffee; } @font-face {} } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								conditionText: "screen",
+								media: {
+									0: "screen",
+									length: 1
+								},
+								cssRules: [],
+								parentRule: null,
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
+];
 
 function itParse(input, result) {
 	var parsed = CSSOM.parse(input);

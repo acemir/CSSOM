@@ -9,6 +9,7 @@ exports.files = [
 	"CSSGroupingRule",
 	"CSSStyleRule",
 	"CSSCounterStyleRule",
+	"CSSPropertyRule",
 	"CSSConditionRule",
 	"MediaList",
 	"CSSMediaRule",
