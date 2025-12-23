@@ -102,6 +102,14 @@ describe('CSSOM', function() {
 				expect(s.cssRules.length).toBe(0);
 			});
 
+			it('should throw error when inserting @import on constructed stylesheet', function () {
+				var s = new CSSOM.CSSStyleSheet;
+				
+				expect(function() {
+					s.insertRule("@import url('test.css');");
+				}).toThrow("Failed to execute 'insertRule' on 'CSSStyleSheet': Can't insert @import rules into a constructed stylesheet.");
+			});
+
 			describe('rule ordering edge cases', function () {
 				it('should allow @layer rules at the beginning', function () {
 					var s = new CSSOM.CSSStyleSheet;
