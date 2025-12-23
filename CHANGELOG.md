@@ -1,5 +1,21 @@
 # @acemir/cssom
 
+## 0.9.30
+
+### Patch Changes
+
+- [#85](https://github.com/acemir/CSSOM/pull/85) [`25f9726`](https://github.com/acemir/CSSOM/commit/25f9726de89c36203d98e9ea8214b933508f0ff9) Thanks [@acemir](https://github.com/acemir)! - feat: sync styleSheet.title with ownerNode.title
+  fix: set selectorText, style and media configurable
+  chore: improve docs and test utils
+
+- [#81](https://github.com/acemir/CSSOM/pull/81) [`4e349c3`](https://github.com/acemir/CSSOM/commit/4e349c3ec9a7419019ba76760718131d9366b2c5) Thanks [@acemir](https://github.com/acemir)! - fix: preserve context for sibling nested selectors
+
+- [#84](https://github.com/acemir/CSSOM/pull/84) [`84ac918`](https://github.com/acemir/CSSOM/commit/84ac91828561dd4b37e6bf685fc5caa9c809851b) Thanks [@acemir](https://github.com/acemir)! - feat: implement `CSSPropertyRule`
+
+- [#83](https://github.com/acemir/CSSOM/pull/83) [`623e136`](https://github.com/acemir/CSSOM/commit/623e136c3abe400b360919fbb11bfd3608d429ef) Thanks [@acemir](https://github.com/acemir)! - feat: improve `CSSImportRule` implementation
+  - set `CSSImportRule.styleSheet` to unconstructed
+  - avoid insert `@import` rules into a constructed stylesheet
+
 ## 0.9.29
 
 ### Patch Changes
