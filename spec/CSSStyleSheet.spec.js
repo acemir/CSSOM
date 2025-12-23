@@ -112,14 +112,14 @@ describe('CSSOM', function() {
 
 			describe('rule ordering edge cases', function () {
 				it('should allow @layer rules at the beginning', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@layer base;", 0);
 					s.insertRule("@layer theme;", 1);
 					expect(s.cssRules.length).toBe(2);
 				});
 
 				it('should throw error when inserting @import after @layer rules', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@layer base;", 0);
 					
 					expect(function() {
@@ -128,21 +128,21 @@ describe('CSSOM', function() {
 				});
 
 				it('should allow @layer rules before @import rules', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@import url('test.css');", 0);
 					s.insertRule("@layer base;", 0); // Insert @layer before @import
 					expect(s.cssRules.length).toBe(2);
 				});
 
 				it('should allow @namespace rules after @import rules', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@import url('test.css');", 0);
 					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 1);
 					expect(s.cssRules.length).toBe(2);
 				});
 
 				it('should throw error when inserting @import after @namespace', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 0);
 					
 					expect(function() {
@@ -151,7 +151,7 @@ describe('CSSOM', function() {
 				});
 
 				it('should throw error when inserting @import after regular rules', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("body { margin: 0; }", 0);
 					
 					expect(function() {
@@ -160,7 +160,7 @@ describe('CSSOM', function() {
 				});
 
 				it('should throw error when inserting @namespace before @import', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@import url('test.css');", 0);
 					
 					expect(function() {
@@ -169,7 +169,7 @@ describe('CSSOM', function() {
 				});
 
 				it('should throw error when inserting @namespace after regular rules', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("body { margin: 0; }", 0);
 					
 					expect(function() {
@@ -178,7 +178,7 @@ describe('CSSOM', function() {
 				});
 
 				it('should throw error when inserting regular rules before @layer', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@layer base;", 0);
 					
 					expect(function() {
@@ -187,7 +187,7 @@ describe('CSSOM', function() {
 				});
 
 				it('should throw error when inserting regular rules before @import', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@import url('test.css');", 0);
 					
 					expect(function() {
@@ -196,7 +196,7 @@ describe('CSSOM', function() {
 				});
 
 				it('should throw error when inserting regular rules before @namespace', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 0);
 					
 					expect(function() {
@@ -205,7 +205,7 @@ describe('CSSOM', function() {
 				});
 
 				it('should allow proper ordering: @import, @layer, @namespace, regular rules', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@import url('test.css');", 0);
 					s.insertRule("@layer base;", 1);
 					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 2);
@@ -215,7 +215,7 @@ describe('CSSOM', function() {
 				});
 
 				it('should allow alternative proper ordering: @layer, @namespace, regular rules', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@layer base;", 0);
 					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 1);
 					s.insertRule("body { margin: 0; }", 2);
@@ -224,7 +224,7 @@ describe('CSSOM', function() {
 				});
 
 				it('should allow inserting multiple @import rules in sequence', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@import url('base.css');", 0);
 					s.insertRule("@import url('theme.css');", 1);
 					s.insertRule("@import url('components.css');", 2);
@@ -233,7 +233,7 @@ describe('CSSOM', function() {
 				});
 
 				it('should allow inserting multiple @namespace rules in sequence', function () {
-					var s = new CSSOM.CSSStyleSheet;
+					var s = CSSOM.parse("");
 					s.insertRule("@namespace svg url('http://www.w3.org/2000/svg');", 0);
 					s.insertRule("@namespace html url('http://www.w3.org/1999/xhtml');", 1);
 					
@@ -321,13 +321,11 @@ describe('CSSOM', function() {
 			})
 
 			it('should keep rules on error', function () {
-				var s = new CSSOM.CSSStyleSheet;
+				var s = CSSOM.parse("");
 				expect([].slice.call(s.cssRules)).toEqual([]);
 
 				s.insertRule("a {color: blue}", 0);
 				expect(s.cssRules.length).toBe(1);
-
-				s.__constructed = false;
 
 				expect(function() {
 					s.replaceSync("a {color");
