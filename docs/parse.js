@@ -162,7 +162,7 @@ function outputUpdated() {
 		uncircularOwnProperties(css);
 		output.innerHTML = '';
 		output.appendChild(inspect(css));
-		serialized.innerHTML = css.toString();
+		serialized.innerHTML = css.toString().replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	}
 }
 

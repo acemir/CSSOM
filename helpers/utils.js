@@ -33,8 +33,11 @@ function getObjectKeysWithGetters(object) {
 		'__cssRules',
 		'__conditionText',
 		'__href',
+		'__inherits',
+		'__initialValue',
 		'__layerName',
 		'__media',
+		'__name',
 		'__namespaceURI',
 		'__parentRule',
 		'__parentStyleSheet',
@@ -42,7 +45,8 @@ function getObjectKeysWithGetters(object) {
 		'__selectorText',
 		'__style',
 		'__styleSheet',
-		'__supportsText'
+		'__supportsText',
+		'__syntax',
 	];
 	keys = keys.filter(function(key) {
 		return hiddenProperties.indexOf(key) === -1;
@@ -56,7 +60,10 @@ function getObjectKeysWithGetters(object) {
 		'containerQuery',
 		'end',
 		'href',
+		'inherits',
+		'initialValue',
 		'layerName',
+		'name',
 		'media',
 		'namespaceURI',
 		'parentRule',
@@ -66,7 +73,8 @@ function getObjectKeysWithGetters(object) {
 		'start',
 		'style',
 		'styleSheet',
-		'supportsText'
+		'supportsText',
+		'syntax',
 	];
 	for (var i = 0; i < prototypeGetters.length; i++) {
 		var prop = prototypeGetters[i];
@@ -110,7 +118,10 @@ function materializeGetters(object, stack) {
 		'containerQuery',
 		'end',
 		'href',
+		'inherits',
+		'initialValue',
 		'layerName',
+		'name',
 		'media',
 		'namespaceURI',
 		'parentRule',
@@ -120,7 +131,8 @@ function materializeGetters(object, stack) {
 		'start',
 		'style',
 		'styleSheet',
-		'supportsText'
+		'supportsText',
+		'syntax',
 	];
 	for (var i = 0; i < prototypeGetters.length; i++) {
 		var prop = prototypeGetters[i];
