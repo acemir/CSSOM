@@ -24,16 +24,22 @@ jobs:
         run: npm install
 
       - name: Get next version from changesets
+        id: next-version
         run: |
-          NEXT_VERSION=$(node scripts/next-version.js)
-          echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
+          if [ -n "$(ls -A .changeset/*.md 2>/dev/null | grep -v 'README')" ]; then
+            NEXT_VERSION=$(node scripts/next-version.js)
+            echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
+            echo "has_changesets=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changesets=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          title: "Version ${{ env.NEXT_VERSION }}"
-          commit: "Version ${{ env.NEXT_VERSION }}"
+          title: ${{ steps.next-version.outputs.has_changesets == 'true' && format('Version {0}', env.NEXT_VERSION) || 'Version Packages' }}
+          commit: ${{ steps.next-version.outputs.has_changesets == 'true' && format('Version {0}', env.NEXT_VERSION) || 'Version Packages' }}
           publish: npm run release
         env:
           NODE_OPTIONS: '--max-old-space-size=4096'
