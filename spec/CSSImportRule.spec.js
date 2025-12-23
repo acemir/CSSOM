@@ -1,6 +1,14 @@
 describe('CSSOM', function() {
 describe('CSSImportRule', function() {
 
+	given('@import ""', function(cssText) {
+		var sheet = CSSOM.parse(cssText);
+		expect(sheet.cssRules.length).toBe(1);
+		var rule = sheet.cssRules[0];
+		expect(rule.styleSheet).toBeDefined();
+		expect(rule.styleSheet.__constructed).toBe(false);
+	});
+
 	given('@import url(button.css);', function(cssText) {
 		var sheet = CSSOM.parse(cssText);
 		expect(sheet.cssRules.length).toBe(1);
