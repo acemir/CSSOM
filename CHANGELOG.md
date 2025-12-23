@@ -5,8 +5,8 @@
 ### Patch Changes
 
 - [#85](https://github.com/acemir/CSSOM/pull/85) [`25f9726`](https://github.com/acemir/CSSOM/commit/25f9726de89c36203d98e9ea8214b933508f0ff9) Thanks [@acemir](https://github.com/acemir)! - feat: sync styleSheet.title with ownerNode.title
-  fix: set selectorText, style and media configurable
-  chore: improve docs and test utils
+  - fix: set selectorText, style and media configurable
+  - chore: improve docs and test utils
 
 - [#81](https://github.com/acemir/CSSOM/pull/81) [`4e349c3`](https://github.com/acemir/CSSOM/commit/4e349c3ec9a7419019ba76760718131d9366b2c5) Thanks [@acemir](https://github.com/acemir)! - fix: preserve context for sibling nested selectors
 
