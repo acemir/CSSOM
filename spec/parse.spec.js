@@ -3810,6 +3810,64 @@ var VALIDATION_TESTS = [
 			result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].cssRules[0];
 			return result;
 		})()
+	},
+	{
+		input: "@layer components { .parent { &[first] { &:before { color: red; } } &[second] { color: blue; } } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						name: "components",
+						cssRules: [
+							{
+								selectorText: ".parent",
+								style: {
+									length: 0
+								},
+								cssRules: [
+									{
+										cssRules: [
+											{
+												cssRules: [],
+												selectorText: "&:before",
+												style: {
+													0: "color",
+													color: "red",
+													length: 1
+												}
+											}
+										],
+										selectorText: "&[first]",
+										style: {
+											length: 0
+										}
+									},
+									{
+										cssRules: [],
+										selectorText: "&[second]",
+										style: {
+											0: "color",
+											color: "blue",
+											length: 1
+										}
+									}
+								],
+								parentRule: null,
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0].cssRules[1].parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0].cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[1].style.parentRule = result.cssRules[0].cssRules[0].cssRules[1];
+			return result;
+		})()
 	}
 ]
 
