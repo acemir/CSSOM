@@ -28,9 +28,13 @@ function hasPrototypeGetter(object, property) {
 function getObjectKeysWithGetters(object) {
 	var keys = Object.keys(object);
 	
-	// Filter out specific __ prefixed properties that have getter equivalents
+	// Filter out specific __ prefixed properties
+	// Useful in the CSSOM playground:
+	// - to hide private properties used internally
+	// - or that have getter equivalents
 	var hiddenProperties = [
 		'__cssRules',
+		'__constructed',
 		'__conditionText',
 		'__href',
 		'__inherits',
@@ -39,6 +43,8 @@ function getObjectKeysWithGetters(object) {
 		'__media',
 		'__name',
 		'__namespaceURI',
+		'__ownerNode',
+		'__ownerRule',
 		'__parentRule',
 		'__parentStyleSheet',
 		'__prefix',
@@ -47,12 +53,16 @@ function getObjectKeysWithGetters(object) {
 		'__styleSheet',
 		'__supportsText',
 		'__syntax',
+		'__title',
 	];
 	keys = keys.filter(function(key) {
 		return hiddenProperties.indexOf(key) === -1;
 	});
 	
 	// Add prototype getters for CSSOM objects
+	// Useful in the CSSOM playground:
+	// - to show properties that are implemented as getters
+	// - and to allow comparison of objects that rely on getters for their state
 	var prototypeGetters = [
 		'cssRules',
 		'conditionText',
@@ -111,6 +121,9 @@ function materializeGetters(object, stack) {
 	// Add current object to stack
 	stack.push(object);
 	
+	// Useful in the CSSOM spec tests:
+	// - to convert prototype getters into own properties for easier comparison while avoiding infinite recursion on circular references
+	// - and to ensure consistent snapshot outputs
 	var prototypeGetters = [
 		'cssRules',
 		'conditionText',
