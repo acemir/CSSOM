@@ -1846,6 +1846,66 @@ var TESTS = [
 			return result;
 		})()
 	},
+	{
+		// Edge case for escaping hyphens and digits in selector identifiers
+		// Therefore:
+		// - `-` must be escaped if it the only character of a identifier or if it starts the identifier and it's followed by a digit
+		// - Digits (`0–9`) Must be escaped if they appear at the start of the identifier
+		input: ".\\- { color: blue } .\\30 { color: green } .\-0 { color: orange} .-\\31 2 { color: yellow }",
+		result: (function() {
+	       var result = {
+					cssRules: [
+						{
+							cssRules: [],
+							selectorText: ".\\-",
+							style: {
+								0: "color",
+								color: "blue",
+								length: 1
+							},
+							parentRule: null,
+						},
+						{
+							cssRules: [],
+							selectorText: ".\\30",
+							style: {
+								0: "color",
+								color: "green",
+								length: 1
+							},
+							parentRule: null,
+						},
+						{
+							cssRules: [],
+							selectorText: ".-0",
+							style: {
+								0: "color",
+								color: "orange",
+								length: 1
+							},
+							parentRule: null,
+						},
+						{
+							cssRules: [],
+							selectorText: ".-\\31 2",
+							style: {
+								0: "color",
+								color: "yellow",
+								length: 1
+							},
+							parentRule: null,
+						}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[2].parentStyleSheet = result.cssRules[3].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			result.cssRules[2].style.parentRule = result.cssRules[2];
+			result.cssRules[3].style.parentRule = result.cssRules[3];
+			return result;
+			})()
+	},
 ];
 
 var CSS_NAMESPACE_TESTS = [
