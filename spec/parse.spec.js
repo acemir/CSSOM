@@ -1851,7 +1851,7 @@ var TESTS = [
 		// Therefore:
 		// - `-` must be escaped if it the only character of a identifier or if it starts the identifier and it's followed by a digit
 		// - Digits (`0–9`) Must be escaped if they appear at the start of the identifier
-		input: ".\\- { color: blue } .\\30 { color: green } .\-0 { color: orange} .-\\31 2 { color: yellow }",
+		input: ".\\- { color: blue } .\\30 { color: green } .\\-0 { color: orange} .-\\31 2 { color: yellow }",
 		result: (function() {
 	       var result = {
 					cssRules: [
@@ -1867,7 +1867,7 @@ var TESTS = [
 						},
 						{
 							cssRules: [],
-							selectorText: ".\\30",
+							selectorText: ".\\30 ",
 							style: {
 								0: "color",
 								color: "green",
@@ -1877,7 +1877,7 @@ var TESTS = [
 						},
 						{
 							cssRules: [],
-							selectorText: ".-0",
+							selectorText: ".-\\30 ",
 							style: {
 								0: "color",
 								color: "orange",
