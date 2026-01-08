@@ -1822,6 +1822,30 @@ var TESTS = [
 			return result;
 		})()
 	},
+	{
+		// The most extreme, fully‑escaped CSS selector
+		input: "#a\\!\\\"\\#\\$\\%\\&\\'\\(\\)\\*\\+\\,\\.\\/\\:\\;\\<\\=\\>\\?\\@\\[\\]\\^\\`\\{\\}\\~\\|\\ \\\\ { color: red; }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: "#a\\!\\\"\\#\\$\\%\\&\\'\\(\\)\\*\\+\\,\\.\\/\\:\\;\\<\\=\\>\\?\\@\\[\\]\\^\\`\\{\\}\\~\\|\\ \\\\",
+						style: {
+							0: "color",
+							color: "red",
+							length: 1
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			return result;
+		})()
+	},
 ];
 
 var CSS_NAMESPACE_TESTS = [
