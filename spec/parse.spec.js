@@ -1847,54 +1847,87 @@ var TESTS = [
 		})()
 	},
 	{
-		// Edge case for escaping hyphens and digits in selector identifiers
-		// Therefore:
+		// Edge case for escaping starting hyphens
 		// - `-` must be escaped if it the only character of a identifier or if it starts the identifier and it's followed by a digit
-		// - Digits (`0–9`) Must be escaped if they appear at the start of the identifier
-		input: ".\\- { color: blue } .\\30 { color: green } .\\-0 { color: orange} .-\\31 2 { color: yellow }",
+		// - Digits (`0–9`) immediately following a single hyphen at the beginning of the identifier are escaped instead of the hyphen during serialization.
+		input: ".\\- {} .\\-0 {} .\\-12 {}",
 		result: (function() {
 	       var result = {
-					cssRules: [
-						{
-							cssRules: [],
-							selectorText: ".\\-",
-							style: {
-								0: "color",
-								color: "blue",
-								length: 1
-							},
-							parentRule: null,
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: ".\\-",
+						style: {
+							length: 0
 						},
-						{
-							cssRules: [],
-							selectorText: ".\\30 ",
-							style: {
-								0: "color",
-								color: "green",
-								length: 1
-							},
-							parentRule: null,
+						parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: ".-\\30 ",
+						style: {
+							length: 0
 						},
-						{
-							cssRules: [],
-							selectorText: ".-\\30 ",
-							style: {
-								0: "color",
-								color: "orange",
-								length: 1
-							},
-							parentRule: null,
+						parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: ".-\\31 2",
+						style: {
+							length: 0
 						},
-						{
-							cssRules: [],
-							selectorText: ".-\\31 2",
-							style: {
-								0: "color",
-								color: "yellow",
-								length: 1
-							},
-							parentRule: null,
-						}
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[2].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			result.cssRules[2].style.parentRule = result.cssRules[2];
+			return result;
+		})()
+	},
+	{
+		// Edge case for starting digits and hex escaped characters
+		// - Digits (`0–9`) Must be escaped if they appear at the start of the identifier
+		// - Hex escaped characters are serialized
+		input: "  .\\30 {} .\\31 2 {} .\\31\\32\\33 {} .\\31abc {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: ".\\30 ",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: ".\\31 2",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: ".\\31 23",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: ".\uD886\uDEBC", // Unicode code point U+31ABC ("𱪼") represented as UTF-16 surrogate pair
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					}
 				],
 				parentStyleSheet: null
 			};
@@ -1904,8 +1937,53 @@ var TESTS = [
 			result.cssRules[2].style.parentRule = result.cssRules[2];
 			result.cssRules[3].style.parentRule = result.cssRules[3];
 			return result;
-			})()
+		})()
 	},
+	{
+		// Edge cases for escaped and unescaped commas
+		// - 1. unescaped commas are used to separate multiple selectors and should receive a trailing space after serialization
+		// - 2. is invalid because [a,b,c] do not match the syntax of any valid attribute selector pattern
+		// - 3. escaped brackets are valid as part of the identifier itself and unescaped commas are used to separate multiple selectors and should receive a trailing space after serialization
+		// - 4. escaped commas are valid as part of the identifier itself and should not receive a trailing  after serialization
+		input: ".test-a,b,c {} .test-[a,b,c] {} .test-\\[a,b,c\\] {} .test-\\[a\\,b\\,c\\] {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						cssRules: [],
+						selectorText: ".test-a, b, c",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: ".test-\\[a, b, c\\]",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: ".test-\\[a\\,b\\,c\\]",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[2].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			result.cssRules[2].style.parentRule = result.cssRules[2];
+			return result;
+		})()
+
+	}
 ];
 
 var CSS_NAMESPACE_TESTS = [
