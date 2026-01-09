@@ -2042,6 +2042,48 @@ var CSS_NESTING_TESTS = [
 			return result;
 		})()
 	},
+	{
+		// Deeply nested at-rule
+		input: "a { b { @media { } } }",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "a",
+						style: {
+							length: 0
+						},
+						cssRules: [
+							{
+								cssRules: [],
+								selectorText: "& b",
+								style: {
+									length: 0
+								},
+								cssRules: [
+									{
+										conditionText: "",
+										media: {
+											length: 0
+										},
+										cssRules: []
+									}
+								]
+							}
+						],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].parentStyleSheet = result.cssRules[0].cssRules[0].cssRules[0].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].parentRule = result.cssRules[0];
+			result.cssRules[0].cssRules[0].style.parentRule = result.cssRules[0].cssRules[0];
+			result.cssRules[0].cssRules[0].cssRules[0].parentRule = result.cssRules[0].cssRules[0];
+			return result;
+		})()
+	},
 	{	
 		// Nested Selector + Nested At-Rule Selector
 		input: "a { &.x { color: black; } @media all { color: aqua; } color: red; }",
