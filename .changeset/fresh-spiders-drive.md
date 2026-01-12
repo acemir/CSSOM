@@ -2,4 +2,4 @@
 "@acemir/cssom": patch
 ---
 
-feat: improve RegExp code organization and performance
+feat: improve RegExp and attr selectors handling
