@@ -2,6 +2,8 @@
  * Use it for developing CSSKit, otherwise use build/CSSKit.js
  */
 
+var module = {};
+
 var exports = {};
 
 function require(path) {
