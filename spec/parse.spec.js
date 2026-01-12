@@ -212,7 +212,7 @@ var TESTS = [
 				cssRules: [
 					{
 						cssRules: [],
-						selectorText: "a[run|=one]",
+						selectorText: "a[run|=\"one\"]",
 						style: {
 							0: "color",
 							color: "red",
@@ -3855,7 +3855,7 @@ var VALIDATION_TESTS = [
 			var result = {
 				cssRules: [
 					{
-						selectorText: "input[dir=auto i]:is([type=search i], [type=tel i], [type=url i], [type=email i]), textarea[dir=auto i], pre[dir=auto i], img:is([sizes=\"auto\" i], [sizes^='auto,' i])",
+						selectorText: "input[dir=\"auto\" i]:is([type=\"search\" i], [type=\"tel\" i], [type=\"url\" i], [type=\"email\" i]), textarea[dir=\"auto\" i], pre[dir=\"auto\" i], img:is([sizes=\"auto\" i], [sizes^=\"auto,\" i])",
 						style: {
 							length: 0
 						},
