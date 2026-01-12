@@ -1,10 +1,23 @@
 # @acemir/cssom
 
+## 0.9.31
+
+### Patch Changes
+
+- [#91](https://github.com/acemir/CSSOM/pull/91) [`e600e1d`](https://github.com/acemir/CSSOM/commit/e600e1d16c6518279266ca5f7508ef39301df44c) Thanks [@acemir](https://github.com/acemir)! - feat: improve RegExp and attr selectors handling
+
+- [#89](https://github.com/acemir/CSSOM/pull/89) [`f29c634`](https://github.com/acemir/CSSOM/commit/f29c634524f975375e0aeeb109e8f2d93b138acb) Thanks [@acemir](https://github.com/acemir)! - feat: improve escaped characters handling
+
+- [#94](https://github.com/acemir/CSSOM/pull/94) [`14bc2b6`](https://github.com/acemir/CSSOM/commit/14bc2b6ded95b6a703ae7ab7f19a77c99e9e0af6) Thanks [@acemir](https://github.com/acemir)! - feat: optimize parse validateAtRule and object lookup
+
+- [#88](https://github.com/acemir/CSSOM/pull/88) [`6b7eb04`](https://github.com/acemir/CSSOM/commit/6b7eb043589122808fcfacd9ec2081fc19cb0864) Thanks [@acemir](https://github.com/acemir)! - fix: deeply nested at-rule
+
 ## 0.9.30
 
 ### Patch Changes
 
 - [#85](https://github.com/acemir/CSSOM/pull/85) [`25f9726`](https://github.com/acemir/CSSOM/commit/25f9726de89c36203d98e9ea8214b933508f0ff9) Thanks [@acemir](https://github.com/acemir)! - feat: sync styleSheet.title with ownerNode.title
+
   - set selectorText, style and media configurable
   - improve docs and test utils
 
