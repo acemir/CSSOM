@@ -3871,6 +3871,117 @@ var VALIDATION_TESTS = [
 		})()
 	},
 	{
+		// Support attribute selector's case-insensitive flag
+		input: "input[data-valid=\\`] {} input[data-valid=\"`\"] {} input[data-valid=\"\\`\"] {} input[data-invalid=`] {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "input[data-valid=\"`\"]",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "input[data-valid=\"`\"]",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "input[data-valid=\"`\"]",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[2].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			result.cssRules[2].style.parentRule = result.cssRules[2];
+			return result;
+		})()
+	},
+	{
+		// Support attribute selector's case-insensitive flag
+		input: "input[data-valid=\\'] {} input[data-valid=\"'\"] {} input[data-valid=\"\\\'\"] {} input[data-invalid='] {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "input[data-valid=\"'\"]",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "input[data-valid=\"'\"]",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "input[data-valid=\"'\"]",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[2].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			result.cssRules[2].style.parentRule = result.cssRules[2];
+			return result;
+		})()
+	},
+	{
+		// Support attribute selector's case-insensitive flag
+		input: "input[data-valid=\\\"] {} input[data-valid=\"\\\"\"] {} input[data-invalid=\"\"\"] {} input[data-invalid=\"] {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+						selectorText: "input[data-valid=\"\\\"\"]",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					},
+					{
+						selectorText: "input[data-valid=\"\\\"\"]",
+						style: {
+							length: 0
+						},
+						cssRules: [],
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			}
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			return result;
+		})()
+	},
+	{
 		// Invalid newline inside quotes
 		input: ":lang(\"\nen\") {}",
 		result: {
