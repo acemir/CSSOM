@@ -17,6 +17,7 @@
     "lib/",
     "build/"
   ],
+  "browser": "./build/CSSOM.js",
   "main": "./lib/index.js",
   "license": "MIT",
   "scripts": {
