@@ -4333,6 +4333,54 @@ var VALIDATION_TESTS = [
 			return result;
 		})()
 	},
+	{
+		input: "-test {} \\-test {} --test {} \\--test {}",
+		result: (function() {
+			var result = {
+				cssRules: [
+					{
+							cssRules: [],
+							selectorText: "-test",
+							style: {
+								length: 0
+							},
+							parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: "-test",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: "--test",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					},
+					{
+						cssRules: [],
+						selectorText: "--test",
+						style: {
+							length: 0
+						},
+						parentRule: null,
+					}
+				],
+				parentStyleSheet: null
+			};
+			result.cssRules[0].parentStyleSheet = result.cssRules[1].parentStyleSheet = result.cssRules[2].parentStyleSheet = result.cssRules[3].parentStyleSheet = result;
+			result.cssRules[0].style.parentRule = result.cssRules[0];
+			result.cssRules[1].style.parentRule = result.cssRules[1];
+			result.cssRules[2].style.parentRule = result.cssRules[2];
+			result.cssRules[3].style.parentRule = result.cssRules[3];
+			return result;
+		})()
+	}
 ];
 
 function itParse(input, result) {
