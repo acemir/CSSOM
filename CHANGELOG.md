@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.9.32
+
+### Patch Changes
+
+- [#96](https://github.com/acemir/CSSOM/pull/96) [`fa34f0a`](https://github.com/acemir/CSSOM/commit/fa34f0a47b0d3792fa2b64a1c1af0b87f302bcc2) Thanks [@acemir](https://github.com/acemir)! - fix: selectors starting with hyphen
+
 ## 0.9.31
 
 ### Patch Changes
