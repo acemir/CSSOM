@@ -723,9 +723,9 @@ var TESTS = [
 			var result = {
 				cssRules: [
 					{
-						conditionText: "(hover:hover)",
+						conditionText: "(hover: hover)",
 						media: {
-							0: "(hover:hover)",
+							0: "(hover: hover)",
 							length: 1
 						},
 						cssRules: [],
