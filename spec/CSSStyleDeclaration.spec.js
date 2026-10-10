@@ -122,7 +122,7 @@ describe('CSSStyleDeclaration', function() {
 	});
 
 	it('preserves direct access to non-reserved properties', function() {
-		// Dumb test to ensure direct assignment and getPropertyValue work for a non-reserved property
+		// Dumb test to ensure direct assignment and setProperty work for a non-reserved property
 		var d = new CSSOM.CSSStyleDeclaration;
 		d.color = 'red';
 		expect(d.color).toBe('red');
