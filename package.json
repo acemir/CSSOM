@@ -22,6 +22,7 @@
   "license": "MIT",
   "scripts": {
     "build": "node build.js",
+    "test": "node test.js",
     "release": "npm run build && changeset publish"
   },
   "devDependencies": {
