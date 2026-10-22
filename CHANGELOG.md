@@ -1,5 +1,20 @@
 # @acemir/cssom
 
+## 0.10.0
+
+### Minor Changes
+
+- [#97](https://github.com/acemir/CSSOM/pull/97) [`b2759e1`](https://github.com/acemir/CSSOM/commit/b2759e1c7c11640e677ed1ed21af5120c5c8a460) Thanks [@domenic](https://github.com/domenic)! - Add an explicit CSSStyleDeclaration integration API.
+
+  New APIs:
+
+  - `setup({ CSSStyleDeclaration })`
+  - `setCSSStyleDeclaration(CSSStyleDeclaration)`
+  - `getCSSStyleDeclaration()`
+  - `resetCSSStyleDeclaration()`
+
+  Rule style declarations created during parsing/cloning now use the configured constructor consistently, avoiding module load-order issues when integrating with custom CSSStyleDeclaration implementations.
+
 ## 0.9.32
 
 ### Patch Changes
