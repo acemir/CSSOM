@@ -17,8 +17,13 @@
     "lib/",
     "build/"
   ],
-  "browser": "./build/CSSOM.js",
   "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./browser": "./build/CSSOM.js"
+  },
+  "unpkg": "./build/CSSOM.js",
+  "jsdelivr": "./build/CSSOM.js",
   "license": "MIT",
   "scripts": {
     "build": "node build.js",
