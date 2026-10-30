@@ -1,5 +1,11 @@
 # @acemir/cssom
 
+## 0.10.1
+
+### Patch Changes
+
+- [#115](https://github.com/acemir/CSSOM/pull/115) [`27c1018`](https://github.com/acemir/CSSOM/commit/27c10186497cf77e59a3e82610bf2d6148ae5da9) Thanks [@acemir](https://github.com/acemir)! - fix: parse scaling performance
+
 ## 0.10.0
 
 ### Minor Changes
