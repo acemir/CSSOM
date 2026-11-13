@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - master
+      - release-0.9.x
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
